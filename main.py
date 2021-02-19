@@ -1,9 +1,6 @@
 # importing modules
 import pygame
 import pygame.gfxdraw
-from pygame.locals import *
-import random
-import sys
 
 # tracking variables
 isMenu = 1
@@ -57,22 +54,23 @@ def view_menu():
     # highlighting the buttons if the mouse is overtop of it
     if reaction_button.get_rect(topleft=[538, 262]).collidepoint(pygame.mouse.get_pos()):
         screen.blit(reaction_button_s, [538, 262])
+
+        if pygame.MOUSEBUTTONDOWN & reaction_button.get_rect(topleft=[538, 262]).collidepoint(pygame.mouse.get_pos()):  # clicks on reaction time
+            react = 1
+            print("react")
+
     elif aim_button.get_rect(topleft=[538, 410]).collidepoint(pygame.mouse.get_pos()):
         screen.blit(aim_button_s, [538, 410])
+
+        if pygame.MOUSEBUTTONDOWN & aim_button.get_rect(topleft=[538, 410]).collidepoint(pygame.mouse.get_pos()):  # clicks on aim trainer
+            aim = 1
+            print("aim")
+
     elif quit_button.get_rect(topleft=[538, 558]).collidepoint(pygame.mouse.get_pos()):
         screen.blit(quit_button_s, [538, 558])
 
-    # selecting the buttons
-    if pygame.MOUSEBUTTONDOWN & reaction_button.get_rect(topleft=[538, 262]).collidepoint(pygame.mouse.get_pos()):  # clicks on reaction time
-        react = 1
-        print("react")
-    elif pygame.MOUSEBUTTONDOWN & aim_button.get_rect(topleft=[538, 262]).collidepoint(pygame.mouse.get_pos()):  # clicks on aim trainer
-        aim = 1
-        print("aim")
-    elif pygame.MOUSEBUTTONDOWN & quit_button.get_rect(topleft=[538, 262]).collidepoint(pygame.mouse.get_pos()):  # clicks on quit
-        print("end")
-        pygame.quit()
-
+        if pygame.MOUSEBUTTONDOWN & quit_button.get_rect(topleft=[538, 558]).collidepoint(pygame.mouse.get_pos()):  # clicks on quit
+            pygame.quit()
 
 
 # initialing colors
