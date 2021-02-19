@@ -5,6 +5,12 @@ from pygame.locals import *
 import random
 import sys
 
+# tracking variables
+isMenu = 1
+react = 0
+aim = 0
+done = False
+
 
 # function to draw a rounded rectangle
 def draw_rounded_rect(surface, rect, color, corner_radius):
@@ -42,6 +48,9 @@ def draw_rounded_rect(surface, rect, color, corner_radius):
 
 # view the menu
 def view_menu():
+    # initializing local variables
+
+
     # displaying the menu buttons
     screen.blit(title, [142, 80])
     screen.blit(reaction_button, [538, 262])
@@ -57,10 +66,13 @@ def view_menu():
         screen.blit(quit_button_s, [538, 558])
 
     # selecting the buttons
+    if pygame.MOUSEBUTTONUP | pygame.MOUSEBUTTONDOWN & reaction_button.get_rect(topleft=[538, 262]).collidepoint(pygame.mouse.get_pos()):  # clicks on reaction time
+        react = 1
+    elif pygame.MOUSEBUTTONUP | pygame.MOUSEBUTTONDOWN & aim_button.get_rect(topleft=[538, 262]).collidepoint(pygame.mouse.get_pos()):  # clicks on aim trainer
+        aim = 1
+    elif pygame.MOUSEBUTTONUP | pygame.MOUSEBUTTONDOWN & quit_button.get_rect(topleft=[538, 262]).collidepoint(pygame.mouse.get_pos()):  # clicks on quit
+        pygame.quit()
 
-
-# tracking variables
-isMenu = 1
 
 # initialing colors
 black = (0, 0, 0)
@@ -89,9 +101,6 @@ title = pygame.image.load("title.png").convert_alpha(screen)
 
 # setting the title of the window
 pygame.display.set_caption("Precision")
-
-# used to check if the user wants to quit
-done = False
 
 # setting the screen refresh rate
 fps = 60
