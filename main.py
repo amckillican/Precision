@@ -55,22 +55,23 @@ def view_menu():
     if reaction_button.get_rect(topleft=[538, 262]).collidepoint(pygame.mouse.get_pos()):
         screen.blit(reaction_button_s, [538, 262])
 
-        if pygame.MOUSEBUTTONDOWN & reaction_button.get_rect(topleft=[538, 262]).collidepoint(pygame.mouse.get_pos()):  # clicks on reaction time
-            react = 1
+        if pygame.mouse.get_pressed()[0] == (1) & reaction_button.get_rect(topleft=[538, 262]).collidepoint(
+                pygame.mouse.get_pos()):  # clicks on reaction time
             print("react")
 
     elif aim_button.get_rect(topleft=[538, 410]).collidepoint(pygame.mouse.get_pos()):
         screen.blit(aim_button_s, [538, 410])
 
-        if pygame.MOUSEBUTTONDOWN & aim_button.get_rect(topleft=[538, 410]).collidepoint(pygame.mouse.get_pos()):  # clicks on aim trainer
-            aim = 1
+        if pygame.mouse.get_pressed()[0] == (1) & aim_button.get_rect(topleft=[538, 410]).collidepoint(
+                pygame.mouse.get_pos()):  # clicks on aim trainer
             print("aim")
 
     elif quit_button.get_rect(topleft=[538, 558]).collidepoint(pygame.mouse.get_pos()):
         screen.blit(quit_button_s, [538, 558])
 
-        if pygame.MOUSEBUTTONDOWN & quit_button.get_rect(topleft=[538, 558]).collidepoint(pygame.mouse.get_pos()):  # clicks on quit
-            pygame.quit()
+        if pygame.mouse.get_pressed()[0] == (1) & quit_button.get_rect(topleft=[538, 558]).collidepoint(
+                pygame.mouse.get_pos()):  # clicks on quit
+            quit()
 
 
 # initialing colors
