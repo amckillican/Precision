@@ -48,9 +48,6 @@ def draw_rounded_rect(surface, rect, color, corner_radius):
 
 # view the menu
 def view_menu():
-    # initializing local variables
-
-
     # displaying the menu buttons
     screen.blit(title, [142, 80])
     screen.blit(reaction_button, [538, 262])
@@ -66,12 +63,16 @@ def view_menu():
         screen.blit(quit_button_s, [538, 558])
 
     # selecting the buttons
-    if pygame.MOUSEBUTTONUP | pygame.MOUSEBUTTONDOWN & reaction_button.get_rect(topleft=[538, 262]).collidepoint(pygame.mouse.get_pos()):  # clicks on reaction time
+    if pygame.MOUSEBUTTONDOWN & reaction_button.get_rect(topleft=[538, 262]).collidepoint(pygame.mouse.get_pos()):  # clicks on reaction time
         react = 1
-    elif pygame.MOUSEBUTTONUP | pygame.MOUSEBUTTONDOWN & aim_button.get_rect(topleft=[538, 262]).collidepoint(pygame.mouse.get_pos()):  # clicks on aim trainer
+        print("react")
+    elif pygame.MOUSEBUTTONDOWN & aim_button.get_rect(topleft=[538, 262]).collidepoint(pygame.mouse.get_pos()):  # clicks on aim trainer
         aim = 1
-    elif pygame.MOUSEBUTTONUP | pygame.MOUSEBUTTONDOWN & quit_button.get_rect(topleft=[538, 262]).collidepoint(pygame.mouse.get_pos()):  # clicks on quit
+        print("aim")
+    elif pygame.MOUSEBUTTONDOWN & quit_button.get_rect(topleft=[538, 262]).collidepoint(pygame.mouse.get_pos()):  # clicks on quit
+        print("end")
         pygame.quit()
+
 
 
 # initialing colors
