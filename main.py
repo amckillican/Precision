@@ -28,16 +28,16 @@ size = (1280, 720)
 screen = pygame.display.set_mode(size)
 
 # Initialize images
-aim_button = pygame.image.load("aim_button.png").convert_alpha(screen)
-aim_button_s = pygame.image.load("aim_button_s.png").convert_alpha(screen)
-quit_button = pygame.image.load("quit_button.png").convert_alpha(screen)
-quit_button_s = pygame.image.load("quit_button_s.png").convert_alpha(screen)
-reaction_button = pygame.image.load("reaction_button.png").convert_alpha(screen)
-reaction_button_s = pygame.image.load("reaction_button_s.png").convert_alpha(screen)
-title = pygame.image.load("title.png").convert_alpha(screen)
-reaction_time_lightning = pygame.image.load("reaction_time_lightning.png").convert_alpha(screen)
-too_soon = pygame.image.load("too_soon.png")
-delay_image = pygame.image.load("delay.png")
+aim_button = pygame.image.load("main_menu/aim_button.png").convert_alpha(screen)
+aim_button_s = pygame.image.load("main_menu/aim_button_s.png").convert_alpha(screen)
+quit_button = pygame.image.load("main_menu/quit_button.png").convert_alpha(screen)
+quit_button_s = pygame.image.load("main_menu/quit_button_s.png").convert_alpha(screen)
+reaction_button = pygame.image.load("main_menu/reaction_button.png").convert_alpha(screen)
+reaction_button_s = pygame.image.load("main_menu/reaction_button_s.png").convert_alpha(screen)
+title = pygame.image.load("main_menu/title.png").convert_alpha(screen)
+reaction_time_lightning = pygame.image.load("reaction_time/reaction_time_lightning.png").convert_alpha(screen)
+too_soon = pygame.image.load("reaction_time/too_soon.png").convert_alpha(screen)
+delay_image = pygame.image.load("reaction_time/delay.png").convert_alpha(screen)
 
 
 # Render some text
