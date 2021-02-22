@@ -9,7 +9,8 @@ This project exists for a computer science class CPT
 We will use pygame to setup the game, and we will have a random number generator to decide the time it takes for the person to be prompted to react and use a time module to measure that time. We will write to a text file to store the best times and average times. We will also use a random number generator to randomly place targets and the time module to measure the time it takes to hit the next target. We will, again, store these values in a text file to keep track of them, and display them.
 
 ## Screenshots
-https://prnt.sc/10462i5
+![alt text](https://prnt.sc/10462i5)
+
 
 ## Tech/framework used
 Ex. -
