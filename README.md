@@ -1,6 +1,8 @@
 # Precision
 ## Created By
-Alexander McKillican, Richard Morad, Benjamin Sergnese
+- Alexander McKillican
+- Richard Morad
+- Benjamin Sergnese
 
 ## About
 This is essentially an app that will help train your hand eye coordination with a mouse, and your reaction time. The game consists of reaction time test and an aim trainer where you click targets as they appear, there will be 3 levels of difficulties for the aim trainer.
