@@ -1,6 +1,6 @@
 # Precision
-## Precision
-A little info about your project and/ or overview that explains **what** the project is about.
+## About
+This is essentially an app that will help train your hand eye coordination with a mouse, and your reaction time. The game consists of reaction time test and an aim trainer where you click targets as they appear, there will be 3 levels of difficulties for the aim trainer.
 
 ## Motivation
 A short description of the motivation behind the creation and maintenance of the project. This should explain **why** the project exists.
