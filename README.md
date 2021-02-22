@@ -27,9 +27,9 @@ We will use pygame to setup the game, and we will have a random number generator
 ## Features
 
 - Reaction time test
-- Aim trainer
-- Local high score system
-- Average scores
+- Aim trainer (W.I.P.)
+- Local high score system (W.I.P.)
+- Average scores (W.I.P.)
 
 ## Installation
 
