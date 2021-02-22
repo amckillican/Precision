@@ -3,21 +3,13 @@
 This is essentially an app that will help train your hand eye coordination with a mouse, and your reaction time. The game consists of reaction time test and an aim trainer where you click targets as they appear, there will be 3 levels of difficulties for the aim trainer.
 
 ## Motivation
-A short description of the motivation behind the creation and maintenance of the project. This should explain **why** the project exists.
-
-## Build status
-Build status of continus integration i.e. travis, appveyor etc. Ex. - 
-
-[![Build Status](https://travis-ci.org/akashnimare/foco.svg?branch=master)](https://travis-ci.org/akashnimare/foco)
-[![Windows Build Status](https://ci.appveyor.com/api/projects/status/github/akashnimare/foco?branch=master&svg=true)](https://ci.appveyor.com/project/akashnimare/foco/branch/master)
+This project exists for a computer science class CPT
 
 ## Code style
-If you're using any code style like xo, standard etc. That will help others while contributing to your project. Ex. -
+We will use pygame to setup the game, and we will have a random number generator to decide the time it takes for the person to be prompted to react and use a time module to measure that time. We will write to a text file to store the best times and average times. We will also use a random number generator to randomly place targets and the time module to measure the time it takes to hit the next target. We will, again, store these values in a text file to keep track of them, and display them.
 
-[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/python)
- 
 ## Screenshots
-Include logo/demo screenshot etc.
+https://prnt.sc/10462i5
 
 ## Tech/framework used
 Ex. -
