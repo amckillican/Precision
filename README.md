@@ -1,4 +1,7 @@
 # Precision
+## Created By
+Alexander McKillican, Richard Morad, Benjamin Sergnese
+
 ## About
 This is essentially an app that will help train your hand eye coordination with a mouse, and your reaction time. The game consists of reaction time test and an aim trainer where you click targets as they appear, there will be 3 levels of difficulties for the aim trainer.
 
@@ -29,10 +32,3 @@ We will use pygame to setup the game, and we will have a random number generator
 ## Installation
 
 To download the repository through command prompt (terminal on MacOS/linux), run the command ```git clone https://github.com/amckillican/Precision.git``` after cd'ing into the directory and run the main.py file in your choice of python IDE.
-
-#### Anything else that seems useful
-
-## License
-A short snippet describing the license (MIT, Apache etc)
-
-MIT © [Alexander McKillican, Richard Morad, Benjamin Sergnese]()
