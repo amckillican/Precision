@@ -31,4 +31,4 @@ We will use pygame to setup the game, and we will have a random number generator
 
 ## Installation
 
-To download the repository through command prompt (terminal on MacOS/linux), run the command ```git clone https://github.com/amckillican/Precision.git``` after cd'ing into the directory and run the main.py file in your choice of python IDE.
+To download the repository through command prompt (terminal on MacOS/linux), after cd'ing into the directory, run the command ```git clone https://github.com/amckillican/Precision.git```. Once you have the repository downloaded, cd into the folder and run the command ```python Precision.py```.
