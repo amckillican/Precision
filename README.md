@@ -14,13 +14,17 @@ We will use pygame to setup the game, and we will have a random number generator
 
 
 ## Tech/framework used
-Ex. -
 
 <b>Built with</b>
-- [Electron](https://electron.atom.io)
+- Pycharm
+- Pygame
 
 ## Features
-What makes your project stand out?
+
+- Reaction time test
+- Aim trainer
+- Local high score system
+- Average scores
 
 ## Code Example
 Show what the library does as concisely as possible, developers should be able to figure out **how** your project solves their problem by looking at the code example. Make sure the API you are showing off is obvious, and that your code is short and concise.
