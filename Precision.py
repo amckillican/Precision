@@ -1,5 +1,5 @@
 # Importing modules
-import pygame, pygame.gfxdraw, time
+import pygame, pygame.gfxdraw, time, threading, random
 
 # Variables
 is_menu = 1
@@ -71,7 +71,7 @@ def View_menu():
             pygame.Surface.fill(screen, background)
             is_menu = 0
             react = 1
-            time.sleep(0.2)
+            #time.sleep(0.4)
 
     # Highlighting the buttons if the mouse is overtop of it
     elif aim_button.get_rect(topleft=[538, 410]).collidepoint(pygame.mouse.get_pos()):
@@ -109,7 +109,8 @@ def React():
         Text(size=100, text="Wait For Green", color=white, center=(640, 360))
 
         # Wait a random amount of time
-
+        event = threading.Event()
+        threading.Event.wait(self=event, timeout=(random.randint(4, 11)))
 
         # Start a timer
 
