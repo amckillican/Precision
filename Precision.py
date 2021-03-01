@@ -112,7 +112,7 @@ def React():
     # Wait a random amount of time
     # event = threading.Event()
     # threading.Event.wait(self=event, timeout=(random.randint(4, 11)))
-    time.sleep(random.randint(4, 11))
+    #time.sleep(random.randint(4, 11))
 
     # # If clicked before react screen
     # if pygame.mouse.get_pressed(num_buttons=3)[0]:  # & wait time is not over **********************
