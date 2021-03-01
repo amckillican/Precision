@@ -1,0 +1,68 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2577
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fmodern\fcharset0 Courier;}
+{\colortbl;\red255\green255\blue255;\red191\green100\blue38;\red32\green32\blue32;\red153\green168\blue186;
+\red79\green116\blue66;\red93\green36\blue188;\red86\green132\blue173;\red115\green56\blue150;\red88\green118\blue71;
+\red117\green114\blue185;}
+{\*\expandedcolortbl;;\csgenericrgb\c74902\c39216\c14902;\csgenericrgb\c12549\c12549\c12549;\csgenericrgb\c60000\c65882\c72941;
+\csgenericrgb\c30980\c45490\c25882;\csgenericrgb\c36471\c14118\c73725;\csgenericrgb\c33725\c51765\c67843;\csgenericrgb\c45098\c21961\c58824;\csgenericrgb\c34510\c46275\c27843;
+\csgenericrgb\c45882\c44706\c72549;}
+\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs48 \cf2 \cb3 global \cf4 delay\
+\cf5 # Display the start text\
+\cf4 screen.\cf6 blit\cf4 (reaction_time_lightning\cf2 , \cf4 [\cf7 570\cf2 , \cf7 120\cf4 ])\
+\cf8 Text\cf4 (\cf6 size\cf4 =\cf7 80\cf2 , \cf6 text\cf4 =\cf9 "Reaction Time Test"\cf2 , \cf6 color\cf4 =white\cf2 , \cf6 center\cf4 =(\cf7 640\cf2 , \cf7 450\cf4 ))\
+\cf8 Text\cf4 (\cf6 size\cf4 =\cf7 40\cf2 , \cf6 text\cf4 =\cf9 "When the screen turns green, click as quickly as you can."\cf2 , \cf6 color\cf4 =white\cf2 , \cf6 center\cf4 =(\cf7 640\cf2 , \cf7 530\cf4 ))\
+\cf8 Text\cf4 (\cf6 size\cf4 =\cf7 40\cf2 , \cf6 text\cf4 =\cf9 "Click anywhere to start."\cf2 , \cf6 color\cf4 =white\cf2 , \cf6 center\cf4 =(\cf7 640\cf2 , \cf7 580\cf4 ))\
+\
+\cf5 # Starting the actual game\
+\cf2 if \cf4 pygame.mouse.\cf6 get_pressed\cf4 (\cf6 num_buttons\cf4 =\cf7 3\cf4 )[\cf7 0\cf4 ] == \cf7 1\cf4 :\
+    \cf5 # Display the get ready screen\
+    \cf4 screen.\cf6 fill\cf4 (red)\
+    \cf8 Text\cf4 (\cf6 size\cf4 =\cf7 100\cf2 , \cf6 text\cf4 =\cf9 "Wait For Green"\cf2 , \cf6 color\cf4 =white\cf2 , \cf6 center\cf4 =(\cf7 640\cf2 , \cf7 360\cf4 ))\
+\
+\cf5 # Wait a random amount of time\
+# event = threading.Event()\
+# threading.Event.wait(self=event, timeout=(random.randint(4, 11)))\
+#time.sleep(random.randint(4, 11))\
+\
+# # If clicked before react screen\
+# if pygame.mouse.get_pressed(num_buttons=3)[0]:  # & wait time is not over **********************\
+#     # Display the try again screen\
+#     screen.fill(background)\
+#     screen.blit(too_soon, [543, 120])\
+#     Text(size=100, text="Too Soon!", color=white, center=(640, 450))\
+#     Text(size=40, text="Click to restart", color=white, center=(640, 530))\
+\
+# Display the react screen\
+\cf4 screen.\cf6 fill\cf4 (green)\
+\cf8 Text\cf4 (\cf6 size\cf4 =\cf7 100\cf2 , \cf6 text\cf4 =\cf9 "Click!"\cf2 , \cf6 color\cf4 =white\cf2 , \cf6 center\cf4 =(\cf7 640\cf2 , \cf7 450\cf4 ))\
+\
+\cf5 # Start a timer\
+\cf4 current_time = time.\cf6 time_ns\cf4 () // \cf7 1_000_000\
+\
+\cf5 # Wait for user to click\
+\cf2 if \cf4 pygame.mouse.\cf6 get_pressed\cf4 (\cf6 num_buttons\cf4 =\cf7 3\cf4 )[\cf7 0\cf4 ] == \cf7 1\cf4 :\
+    \cf5 # Stop the timer\
+    \cf4 click_time = time.\cf6 time_ns\cf4 () // \cf7 1_000_000\
+    \cf4 delay = click_time - current_time\
+    \cf10 print\cf4 (current_time\cf2 , \cf4 click_time\cf2 , \cf4 delay)\
+\
+    \cf5 # Display the time screen\
+    \cf4 screen.\cf6 fill\cf4 (background)\
+    screen.\cf6 blit\cf4 (delay_image\cf2 , \cf4 [\cf7 543\cf2 , \cf7 120\cf4 ])\
+    \cf8 Text\cf4 (\cf6 size\cf4 =\cf7 100\cf2 , \cf6 text\cf4 =(\cf10 str\cf4 (delay) + \cf9 " ms"\cf4 )\cf2 , \cf6 color\cf4 =white\cf2 , \cf6 center\cf4 =(\cf7 640\cf2 , \cf7 450\cf4 ))\
+\
+    \cf5 # Display a varying message based on the reaction time\
+    \cf2 if \cf4 delay <= \cf7 140\cf4 :\
+        \cf8 Text\cf4 (\cf6 size\cf4 =\cf7 40\cf2 , \cf6 text\cf4 =\cf9 "WOW! You have inhuman reactions!"\cf2 , \cf6 color\cf4 =white\cf2 , \cf6 center\cf4 =(\cf7 640\cf2 , \cf7 530\cf4 ))\
+    \cf2 elif \cf7 141 \cf4 <= delay & delay <= \cf7 190\cf4 :\
+        \cf8 Text\cf4 (\cf6 size\cf4 =\cf7 40\cf2 , \cf6 text\cf4 =\cf9 "Nice! You are above average!"\cf2 , \cf6 color\cf4 =white\cf2 , \cf6 center\cf4 =(\cf7 640\cf2 , \cf7 530\cf4 ))\
+    \cf2 elif \cf7 191 \cf4 <= delay <= \cf7 230\cf4 :\
+        \cf8 Text\cf4 (\cf6 size\cf4 =\cf7 40\cf2 , \cf6 text\cf4 =\cf9 "Good Job! You are in the average."\cf2 , \cf6 color\cf4 =white\cf2 , \cf6 center\cf4 =(\cf7 640\cf2 , \cf7 530\cf4 ))\
+    \cf2 elif \cf7 231 \cf4 <= delay <= \cf7 300\cf4 :\
+        \cf8 Text\cf4 (\cf6 size\cf4 =\cf7 40\cf2 , \cf6 text\cf4 =\cf9 "You are below the average."\cf2 , \cf6 color\cf4 =white\cf2 , \cf6 center\cf4 =(\cf7 640\cf2 , \cf7 530\cf4 ))\
+    \cf2 elif \cf7 301 \cf4 >= delay:\
+        \cf8 Text\cf4 (\cf6 size\cf4 =\cf7 40\cf2 , \cf6 text\cf4 =\cf9 "Are you paying attention?"\cf2 , \cf6 color\cf4 =white\cf2 , \cf6 center\cf4 =(\cf7 640\cf2 , \cf7 530\cf4 ))\
+}

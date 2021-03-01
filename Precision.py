@@ -7,8 +7,8 @@ react = 0
 aim = 0
 done = False
 text = ""
-center = (0, 0)
 delay = 0
+center = (640, 360)
 
 # Initialing colors
 black = (0, 0, 0)
@@ -35,9 +35,6 @@ quit_button_s = pygame.image.load("main_menu/quit_button_s.png").convert_alpha(s
 reaction_button = pygame.image.load("main_menu/reaction_button.png").convert_alpha(screen)
 reaction_button_s = pygame.image.load("main_menu/reaction_button_s.png").convert_alpha(screen)
 title = pygame.image.load("main_menu/title.png").convert_alpha(screen)
-reaction_time_lightning = pygame.image.load("reaction_time/reaction_time_lightning.png").convert_alpha(screen)
-too_soon = pygame.image.load("reaction_time/too_soon.png").convert_alpha(screen)
-delay_image = pygame.image.load("reaction_time/delay.png").convert_alpha(screen)
 
 
 # Render some text
@@ -71,7 +68,6 @@ def View_menu():
             pygame.Surface.fill(screen, background)
             is_menu = 0
             react = 1
-            # time.sleep(0.4)
 
     # Highlighting the buttons if the mouse is overtop of it
     elif aim_button.get_rect(topleft=[538, 410]).collidepoint(pygame.mouse.get_pos()):
@@ -96,62 +92,47 @@ def View_menu():
 
 # Running the reaction time game
 def React():
-    global delay
-    # Display the start text
-    screen.blit(reaction_time_lightning, [570, 120])
-    Text(size=80, text="Reaction Time Test", color=white, center=(640, 450))
-    Text(size=40, text="When the screen turns green, click as quickly as you can.", color=white, center=(640, 530))
-    Text(size=40, text="Click anywhere to start.", color=white, center=(640, 580))
+    font = pygame.font.SysFont("Calibri", 30)
 
-    # Starting the actual game
-    if pygame.mouse.get_pressed(num_buttons=3)[0] == 1:
-        # Display the get ready screen
-        screen.fill(red)
-        Text(size=100, text="Wait For Green", color=white, center=(640, 360))
+    text = font.render("PRESS ANY KEY TO START TEST", 0, (255, 255, 255))
+    w = font.render("PRESS ANY KEY", 0, (0, 255, 0))
+    r_surf = None
+    ar_surf = None
 
-    # Wait a random amount of time
-    # event = threading.Event()
-    # threading.Event.wait(self=event, timeout=(random.randint(4, 11)))
-    #time.sleep(random.randint(4, 11))
+    game_state = "start"
+    start_time = 0
+    average_time = 0
 
-    # # If clicked before react screen
-    # if pygame.mouse.get_pressed(num_buttons=3)[0]:  # & wait time is not over **********************
-    #     # Display the try again screen
-    #     screen.fill(background)
-    #     screen.blit(too_soon, [543, 120])
-    #     Text(size=100, text="Too Soon!", color=white, center=(640, 450))
-    #     Text(size=40, text="Click to restart", color=white, center=(640, 530))
+    count = 0
 
-    # Display the react screen
-    screen.fill(green)
-    Text(size=100, text="Click!", color=white, center=(640, 450))
+    if event.type == pygame.KEYDOWN:
+        if game_state == "start":
+            game_state = "wait"
+            start_time = current_time + random.randint(1000, 4000)
+        if game_state == "wait_for_reaction":
+            game_state = "wait"
+            reaction_time = (current_time - start_time) / 1000
+            start_time = current_time + random.randint(1000, 4000)
+            count += 1
+            average_time = (average_time * (count - 1) + reaction_time) / count
+            r_surf = font.render(f"REACTION TIME: {reaction_time:.03f}", 0, (255, 255, 255))
+            ar_surf = font.render(f"AVERAGE REACTION TIME IS: {average_time:.03f}", 0, (255, 255, 255))
 
-    # Start a timer
-    current_time = time.time_ns() // 1_000_000
+    if game_state == "wait":
+        if current_time >= start_time:
+            game_state = "wait_for_reaction"
 
-    # Wait for user to click
-    if pygame.mouse.get_pressed(num_buttons=3)[0] == 1:
-        # Stop the timer
-        click_time = time.time_ns() // 1_000_000
-        delay = click_time - current_time
-        print(current_time, click_time, delay)
+    screen.fill(pygame.Color("black"))
 
-        # Display the time screen
-        screen.fill(background)
-        screen.blit(delay_image, [543, 120])
-        Text(size=100, text=(str(delay) + " ms"), color=white, center=(640, 450))
-
-        # Display a varying message based on the reaction time
-        if delay <= 140:
-            Text(size=40, text="WOW! You have inhuman reactions!", color=white, center=(640, 530))
-        elif 141 <= delay & delay <= 190:
-            Text(size=40, text="Nice! You are above average!", color=white, center=(640, 530))
-        elif 191 <= delay <= 230:
-            Text(size=40, text="Good Job! You are in the average.", color=white, center=(640, 530))
-        elif 231 <= delay <= 300:
-            Text(size=40, text="You are below the average.", color=white, center=(640, 530))
-        elif 301 >= delay:
-            Text(size=40, text="Are you paying attention?", color=white, center=(640, 530))
+    center = screen.get_rect().center
+    if game_state == "start":
+        screen.blit(text, text.get_rect(center=center))
+    if game_state == "wait_for_reaction":
+        screen.blit(w, w.get_rect(center=center))
+    if r_surf:
+        screen.blit(r_surf, r_surf.get_rect(center=(center[0], 350)))
+    if ar_surf:
+        screen.blit(ar_surf, ar_surf.get_rect(center=(center[0], 400)))
 
 
 
