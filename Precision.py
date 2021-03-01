@@ -1,5 +1,5 @@
 # Importing modules
-import pygame, pygame.gfxdraw, time, threading, random
+import pygame, pygame.gfxdraw, time, random
 
 # Variables
 is_menu = 1
@@ -71,7 +71,7 @@ def View_menu():
             pygame.Surface.fill(screen, background)
             is_menu = 0
             react = 1
-            #time.sleep(0.4)
+            # time.sleep(0.4)
 
     # Highlighting the buttons if the mouse is overtop of it
     elif aim_button.get_rect(topleft=[538, 410]).collidepoint(pygame.mouse.get_pos()):
@@ -109,28 +109,30 @@ def React():
         Text(size=100, text="Wait For Green", color=white, center=(640, 360))
 
         # Wait a random amount of time
-        event = threading.Event()
-        threading.Event.wait(self=event, timeout=(random.randint(4, 11)))
+        # event = threading.Event()
+        # threading.Event.wait(self=event, timeout=(random.randint(4, 11)))
+        time.sleep(random.randint(4, 11))
 
-        # Start a timer
-
-
-        # If clicked before react screen
-        if pygame.mouse.get_pressed(num_buttons=3)[0]: # & wait time is not over **********************
-            # Display the try again screen
-            screen.fill(background)
-            screen.blit(too_soon, [543, 120])
-            Text(size=100, text="Too Soon!", color=white, center=(640, 450))
-            Text(size=40, text="Click to restart", color=white, center=(640, 530))
-
+        # # If clicked before react screen
+        # if pygame.mouse.get_pressed(num_buttons=3)[0]:  # & wait time is not over **********************
+        #     # Display the try again screen
+        #     screen.fill(background)
+        #     screen.blit(too_soon, [543, 120])
+        #     Text(size=100, text="Too Soon!", color=white, center=(640, 450))
+        #     Text(size=40, text="Click to restart", color=white, center=(640, 530))
 
         # Display the react screen
         screen.fill(green)
         Text(size=100, text="Click!", color=white, center=(640, 450))
 
+        # Start a timer
+        current_time = time.time_ns() // 1_000_000
+
         # Wait for user to click
-        if pygame.mouse.get_pressed(num_buttons=3)[0]:
+        if pygame.mouse.get_pressed(num_buttons=3)[0] == 1:
             # Stop the timer
+            click_time = time.time_ns() // 1_000_000
+            print(current_time, click_time, click_time-current_time)
 
             # Display the time screen
             screen.fill(background)
@@ -138,11 +140,16 @@ def React():
             Text(size=100, text=(str(delay) + " ms"), color=white, center=(640, 450))
 
             # Display a varying message based on the reaction time
-            if delay <= 140: Text(size=40, text="WOW! You have inhuman reactions!", color=white, center=(640, 530))
-            elif 141 <= delay & delay <= 190: Text(size=40, text="Nice! You are above average!", color=white, center=(640, 530))
-            elif 191 <= delay <= 230: Text(size=40, text="Good Job! You are in the average.", color=white, center=(640, 530))
-            elif 231 <= delay <= 300: Text(size=40, text="You are below the average.", color=white, center=(640, 530))
-            elif 301 >= delay: Text(size=40, text="Are you paying attention?", color=white, center=(640, 530))
+            if delay <= 140:
+                Text(size=40, text="WOW! You have inhuman reactions!", color=white, center=(640, 530))
+            elif 141 <= delay & delay <= 190:
+                Text(size=40, text="Nice! You are above average!", color=white, center=(640, 530))
+            elif 191 <= delay <= 230:
+                Text(size=40, text="Good Job! You are in the average.", color=white, center=(640, 530))
+            elif 231 <= delay <= 300:
+                Text(size=40, text="You are below the average.", color=white, center=(640, 530))
+            elif 301 >= delay:
+                Text(size=40, text="Are you paying attention?", color=white, center=(640, 530))
 
 
 # setting the title of the window
