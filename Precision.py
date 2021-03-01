@@ -96,6 +96,7 @@ def View_menu():
 
 # Running the reaction time game
 def React():
+    global delay
     # Display the start text
     screen.blit(reaction_time_lightning, [570, 120])
     Text(size=80, text="Reaction Time Test", color=white, center=(640, 450))
@@ -108,48 +109,51 @@ def React():
         screen.fill(red)
         Text(size=100, text="Wait For Green", color=white, center=(640, 360))
 
-        # Wait a random amount of time
-        # event = threading.Event()
-        # threading.Event.wait(self=event, timeout=(random.randint(4, 11)))
-        time.sleep(random.randint(4, 11))
+    # Wait a random amount of time
+    # event = threading.Event()
+    # threading.Event.wait(self=event, timeout=(random.randint(4, 11)))
+    time.sleep(random.randint(4, 11))
 
-        # # If clicked before react screen
-        # if pygame.mouse.get_pressed(num_buttons=3)[0]:  # & wait time is not over **********************
-        #     # Display the try again screen
-        #     screen.fill(background)
-        #     screen.blit(too_soon, [543, 120])
-        #     Text(size=100, text="Too Soon!", color=white, center=(640, 450))
-        #     Text(size=40, text="Click to restart", color=white, center=(640, 530))
+    # # If clicked before react screen
+    # if pygame.mouse.get_pressed(num_buttons=3)[0]:  # & wait time is not over **********************
+    #     # Display the try again screen
+    #     screen.fill(background)
+    #     screen.blit(too_soon, [543, 120])
+    #     Text(size=100, text="Too Soon!", color=white, center=(640, 450))
+    #     Text(size=40, text="Click to restart", color=white, center=(640, 530))
 
-        # Display the react screen
-        screen.fill(green)
-        Text(size=100, text="Click!", color=white, center=(640, 450))
+    # Display the react screen
+    screen.fill(green)
+    Text(size=100, text="Click!", color=white, center=(640, 450))
 
-        # Start a timer
-        current_time = time.time_ns() // 1_000_000
+    # Start a timer
+    current_time = time.time_ns() // 1_000_000
 
-        # Wait for user to click
-        if pygame.mouse.get_pressed(num_buttons=3)[0] == 1:
-            # Stop the timer
-            click_time = time.time_ns() // 1_000_000
-            print(current_time, click_time, click_time-current_time)
+    # Wait for user to click
+    if pygame.mouse.get_pressed(num_buttons=3)[0] == 1:
+        # Stop the timer
+        click_time = time.time_ns() // 1_000_000
+        delay = click_time - current_time
+        print(current_time, click_time, delay)
 
-            # Display the time screen
-            screen.fill(background)
-            screen.blit(delay_image, [543, 120])
-            Text(size=100, text=(str(delay) + " ms"), color=white, center=(640, 450))
+        # Display the time screen
+        screen.fill(background)
+        screen.blit(delay_image, [543, 120])
+        Text(size=100, text=(str(delay) + " ms"), color=white, center=(640, 450))
 
-            # Display a varying message based on the reaction time
-            if delay <= 140:
-                Text(size=40, text="WOW! You have inhuman reactions!", color=white, center=(640, 530))
-            elif 141 <= delay & delay <= 190:
-                Text(size=40, text="Nice! You are above average!", color=white, center=(640, 530))
-            elif 191 <= delay <= 230:
-                Text(size=40, text="Good Job! You are in the average.", color=white, center=(640, 530))
-            elif 231 <= delay <= 300:
-                Text(size=40, text="You are below the average.", color=white, center=(640, 530))
-            elif 301 >= delay:
-                Text(size=40, text="Are you paying attention?", color=white, center=(640, 530))
+        # Display a varying message based on the reaction time
+        if delay <= 140:
+            Text(size=40, text="WOW! You have inhuman reactions!", color=white, center=(640, 530))
+        elif 141 <= delay & delay <= 190:
+            Text(size=40, text="Nice! You are above average!", color=white, center=(640, 530))
+        elif 191 <= delay <= 230:
+            Text(size=40, text="Good Job! You are in the average.", color=white, center=(640, 530))
+        elif 231 <= delay <= 300:
+            Text(size=40, text="You are below the average.", color=white, center=(640, 530))
+        elif 301 >= delay:
+            Text(size=40, text="Are you paying attention?", color=white, center=(640, 530))
+
+
 
 
 # setting the title of the window
@@ -170,7 +174,7 @@ while not done:
 
     # Screen-clearing code goes here
 
-    # clear the screen to white. Don't put other drawing commands
+    # clear the screen to background color. Don't put other drawing commands
     # above this, or they will be erased with this command.
     screen.fill(background)
 
