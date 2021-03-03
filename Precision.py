@@ -1,5 +1,5 @@
 # Importing modules
-import pygame, pygame.gfxdraw, time, random
+import pygame, pygame.gfxdraw, random
 
 # Variables
 is_menu = 1
@@ -94,14 +94,15 @@ def View_menu():
 def React():
     font = pygame.font.SysFont("Calibri", 30)
 
-    text = font.render("PRESS ANY KEY TO START TEST", 0, (255, 255, 255))
-    w = font.render("PRESS ANY KEY", 0, (0, 255, 0))
+    text = font.render("PRESS ANY KEY TO START TEST", False, (255, 255, 255))
+    w = font.render("PRESS ANY KEY", False, (0, 255, 0))
     r_surf = None
     ar_surf = None
 
     game_state = "start"
     start_time = 0
     average_time = 0
+    current_time = 0
 
     count = 0
 
@@ -115,8 +116,8 @@ def React():
             start_time = current_time + random.randint(1000, 4000)
             count += 1
             average_time = (average_time * (count - 1) + reaction_time) / count
-            r_surf = font.render(f"REACTION TIME: {reaction_time:.03f}", 0, (255, 255, 255))
-            ar_surf = font.render(f"AVERAGE REACTION TIME IS: {average_time:.03f}", 0, (255, 255, 255))
+            r_surf = font.render(f"REACTION TIME: {reaction_time:.03f}", False, (255, 255, 255))
+            ar_surf = font.render(f"AVERAGE REACTION TIME IS: {average_time:.03f}", False, (255, 255, 255))
 
     if game_state == "wait":
         if current_time >= start_time:
@@ -135,42 +136,36 @@ def React():
         screen.blit(ar_surf, ar_surf.get_rect(center=(center[0], 400)))
 
 
-
-
-# setting the title of the window
+# Setting the title of the window
 pygame.display.set_caption("Precision")
 
-# setting the screen refresh rate
+# Setting the screen refresh rate
 fps = 60
 clock = pygame.time.Clock()
 
-# main program loop
+# Main program loop
 while not done:
-    # main event loop
+    # Main event loop
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
 
-    # Game logic should go here
-
-    # Screen-clearing code goes here
-
-    # clear the screen to background color. Don't put other drawing commands
-    # above this, or they will be erased with this command.
+    # Clearing the screen
     screen.fill(background)
 
-    # drawing code should go here
+    # Drawing code should go here
     if is_menu == 1:
         View_menu()
     if react == 1:
         React()
     if aim == 1:
         break
-    # update the screen with what we've drawn
+
+    # Update the screen with what we've drawn
     pygame.display.flip()
 
-    # limit to 60 fps
+    # Limit to 60 fps
     clock.tick(fps)
 
-# close the window and quit
+# Close the window and quit
 pygame.quit()
