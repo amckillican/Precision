@@ -9,6 +9,9 @@ done = False
 text = ""
 delay = 0
 center = (640, 360)
+start_time = 0
+average_time = 0
+difficulty = 0
 
 # Initialing colors
 black = (0, 0, 0)
@@ -17,15 +20,16 @@ red = (255, 0, 0)
 green = (0, 255, 0)
 blue = (0, 0, 255)
 background = (39, 41, 44)
-button = (65, 68, 73)
 
 # Initialize pygame
 pygame.init()
 pygame.font.init()
+Title_Font = pygame.font.SysFont("Arial", 60)
+Subtitle_font = pygame.font.SysFont("Arial", 30)
 
 # Set the width and height of the screen [width, height]
-size = (1280, 720)
-screen = pygame.display.set_mode(size)
+res = (1280, 720)
+screen = pygame.display.set_mode(res)
 
 # Initialize images
 aim_button = pygame.image.load("main_menu/aim_button.png").convert_alpha(screen)
@@ -35,14 +39,26 @@ quit_button_s = pygame.image.load("main_menu/quit_button_s.png").convert_alpha(s
 reaction_button = pygame.image.load("main_menu/reaction_button.png").convert_alpha(screen)
 reaction_button_s = pygame.image.load("main_menu/reaction_button_s.png").convert_alpha(screen)
 title = pygame.image.load("main_menu/title.png").convert_alpha(screen)
+easy = pygame.image.load("difficulty/easy.png").convert_alpha(screen)
+easy_s = pygame.image.load("difficulty/easy_s.png").convert_alpha(screen)
+medium = pygame.image.load("difficulty/medium.png").convert_alpha(screen)
+medium_s = pygame.image.load("difficulty/medium_s.png").convert_alpha(screen)
+hard = pygame.image.load("difficulty/hard.png").convert_alpha(screen)
+hard_s = pygame.image.load("difficulty/hard_s.png").convert_alpha(screen)
 
 
 # Render some text
-def Text(size=40, text="NULL", color=white, center=(0, 0)):
-    myfont = pygame.font.SysFont("Calibri", size)
-    rendered_text = (myfont.render(text, True, color))
-    rendered_text_rext = rendered_text.get_rect(center=center)
-    screen.blit(rendered_text, rendered_text_rext)
+def Title_text(text="NULL", color=white, center=(640, 360)):
+    rendered_text = (Title_Font.render(text, True, color))
+    rendered_text_rect = rendered_text.get_rect(center=center)
+    screen.blit(rendered_text, rendered_text_rect)
+
+
+# Render some text
+def Subtitle_text(text="NULL", color=white, center=(640, 360)):
+    rendered_text = (Subtitle_font.render(text, True, color))
+    rendered_text_rect = rendered_text.get_rect(center=center)
+    screen.blit(rendered_text, rendered_text_rect)
 
 
 # View the menu
@@ -53,7 +69,7 @@ def View_menu():
     pygame.Surface.fill(screen, background)
 
     # Displaying the menu images
-    screen.blit(title, [142, 80])
+    screen.blit(title, [160, 80])
     screen.blit(reaction_button, [538, 262])
     screen.blit(aim_button, [538, 410])
     screen.blit(quit_button, [538, 558])
@@ -92,48 +108,56 @@ def View_menu():
 
 # Running the reaction time game
 def React():
-    font = pygame.font.SysFont("Calibri", 30)
-
-    text = font.render("PRESS ANY KEY TO START TEST", False, (255, 255, 255))
-    w = font.render("PRESS ANY KEY", False, (0, 255, 0))
-    r_surf = None
-    ar_surf = None
-
-    game_state = "start"
-    start_time = 0
-    average_time = 0
-    current_time = 0
-
+    game_state = 0
     count = 0
+    current_time = pygame.time.get_ticks()
 
-    if event.type == pygame.KEYDOWN:
-        if game_state == "start":
-            game_state = "wait"
-            start_time = current_time + random.randint(1000, 4000)
-        if game_state == "wait_for_reaction":
-            game_state = "wait"
-            reaction_time = (current_time - start_time) / 1000
-            start_time = current_time + random.randint(1000, 4000)
-            count += 1
-            average_time = (average_time * (count - 1) + reaction_time) / count
-            r_surf = font.render(f"REACTION TIME: {reaction_time:.03f}", False, (255, 255, 255))
-            ar_surf = font.render(f"AVERAGE REACTION TIME IS: {average_time:.03f}", False, (255, 255, 255))
+    if game_state == 0:
+        Title_text(text="Press Any Key To Start", color=white, center=(640, 360))
 
-    if game_state == "wait":
-        if current_time >= start_time:
-            game_state = "wait_for_reaction"
+    for event in pygame.event.get():
+        if event == pygame.KEYDOWN:
+            pygame.Surface.fill(screen, background)
+            game_state = 1
 
-    screen.fill(pygame.Color("black"))
 
-    center = screen.get_rect().center
-    if game_state == "start":
-        screen.blit(text, text.get_rect(center=center))
-    if game_state == "wait_for_reaction":
-        screen.blit(w, w.get_rect(center=center))
-    if r_surf:
-        screen.blit(r_surf, r_surf.get_rect(center=(center[0], 350)))
-    if ar_surf:
-        screen.blit(ar_surf, ar_surf.get_rect(center=(center[0], 400)))
+def Difficulty():
+    pygame.Surface.fill(screen, background)
+
+    # Rendering images
+    screen.blit(title, [160, 80])
+    Title_text(text="Choose A Difficulty", color=white, center=[640, 300])
+    screen.blit(easy, [93, 400])
+    screen.blit(medium, [389, 400])
+    screen.blit(hard, [686, 400])
+    screen.blit(quit_button, [983, 400])
+
+    #
+    if easy.get_rect(topleft=[93, 400]).collidepoint(pygame.mouse.get_pos()):
+        screen.blit(easy_s, [93, 400])
+
+        difficulty = 1
+
+    elif medium.get_rect(topleft=[389, 400]).collidepoint(pygame.mouse.get_pos()):
+        screen.blit(medium_s, [389, 400])
+
+        difficulty = 2
+
+    elif hard.get_rect(topleft=[686, 400]).collidepoint(pygame.mouse.get_pos()):
+        screen.blit(hard_s, [686, 400])
+
+        difficulty = 3
+
+    elif quit_button.get_rect(topleft=[983, 400]).collidepoint(pygame.mouse.get_pos()):
+        screen.blit(quit_button_s, [983, 400])
+
+        # Quitting the game
+        if pygame.mouse.get_pressed(num_buttons=3)[0] == 1 & quit_button.get_rect(topleft=[983, 400]).collidepoint(
+                pygame.mouse.get_pos()):
+            is_menu = 1
+            aim = 0
+            # View_menu()
+
 
 
 # Setting the title of the window
@@ -159,7 +183,7 @@ while not done:
     if react == 1:
         React()
     if aim == 1:
-        break
+        Difficulty()
 
     # Update the screen with what we've drawn
     pygame.display.flip()
