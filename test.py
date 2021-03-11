@@ -20,6 +20,7 @@ average_time = 0
 count = 0
 running = True
 while running:
+    screen.fill((39, 41, 44))
     current_time = pygame.time.get_ticks()
 
     for event in pygame.event.get():
