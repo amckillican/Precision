@@ -43,7 +43,8 @@ while running:
         if current_time >= start_time:
             game_state = "wait_for_reaction"
 
-    screen.fill(pygame.Color("black"))
+            # Clearing the screen
+            screen.fill((39, 41, 44))
 
     center = screen.get_rect().center
     if game_state == "start":

@@ -2,16 +2,14 @@
 import pygame, pygame.gfxdraw, random
 
 # Variables
-is_menu = 1
-react = 0
-aim = 0
+game_screen = "menu"
 done = False
 text = ""
 delay = 0
 center = (640, 360)
 start_time = 0
 average_time = 0
-difficulty = 0
+difficulty = ""
 
 # Initialing colors
 black = (0, 0, 0)
@@ -63,7 +61,7 @@ def Subtitle_text(text="NULL", color=white, center=(640, 360)):
 
 # View the menu
 def View_menu():
-    global is_menu, aim, react
+    global game_screen
 
     # Clear the screen
     pygame.Surface.fill(screen, background)
@@ -82,8 +80,7 @@ def View_menu():
         if pygame.mouse.get_pressed(num_buttons=3)[0] == 1 & reaction_button.get_rect(topleft=[538, 262]).collidepoint(
                 pygame.mouse.get_pos()):  # clicks on reaction time
             pygame.Surface.fill(screen, background)
-            is_menu = 0
-            react = 1
+            game_screen = "react"
 
     # Highlighting the buttons if the mouse is overtop of it
     elif aim_button.get_rect(topleft=[538, 410]).collidepoint(pygame.mouse.get_pos()):
@@ -93,8 +90,7 @@ def View_menu():
         if pygame.mouse.get_pressed(num_buttons=3)[0] == 1 & aim_button.get_rect(topleft=[538, 410]).collidepoint(
                 pygame.mouse.get_pos()):  # clicks on aim trainer
             pygame.Surface.fill(screen, background)
-            is_menu = 0
-            aim = 1
+            game_screen = "aim"
 
     # Highlighting the buttons if the mouse is overtop of it
     elif quit_button.get_rect(topleft=[538, 558]).collidepoint(pygame.mouse.get_pos()):
@@ -108,17 +104,17 @@ def View_menu():
 
 # Running the reaction time game
 def React():
-    game_state = 0
+    game_state = "start"
     count = 0
     current_time = pygame.time.get_ticks()
 
-    if game_state == 0:
+    if game_state == "start":
         Title_text(text="Press Any Key To Start", color=white, center=(640, 360))
 
     for event in pygame.event.get():
         if event == pygame.KEYDOWN:
             pygame.Surface.fill(screen, background)
-            game_state = 1
+            game_state = ""
 
 
 def Difficulty():
@@ -136,17 +132,17 @@ def Difficulty():
     if easy.get_rect(topleft=[93, 400]).collidepoint(pygame.mouse.get_pos()):
         screen.blit(easy_s, [93, 400])
 
-        difficulty = 1
+        difficulty = "easy"
 
     elif medium.get_rect(topleft=[389, 400]).collidepoint(pygame.mouse.get_pos()):
         screen.blit(medium_s, [389, 400])
 
-        difficulty = 2
+        difficulty = "medium"
 
     elif hard.get_rect(topleft=[686, 400]).collidepoint(pygame.mouse.get_pos()):
         screen.blit(hard_s, [686, 400])
 
-        difficulty = 3
+        difficulty = "hard"
 
     elif quit_button.get_rect(topleft=[983, 400]).collidepoint(pygame.mouse.get_pos()):
         screen.blit(quit_button_s, [983, 400])
@@ -154,10 +150,7 @@ def Difficulty():
         # Quitting the game
         if pygame.mouse.get_pressed(num_buttons=3)[0] == 1 & quit_button.get_rect(topleft=[983, 400]).collidepoint(
                 pygame.mouse.get_pos()):
-            is_menu = 1
-            aim = 0
-            # View_menu()
-
+            game_screen = "menu"
 
 
 # Setting the title of the window
@@ -174,16 +167,16 @@ while not done:
         if event.type == pygame.QUIT:
             done = True
 
-    # Clearing the screen
-    screen.fill(background)
+        # Clearing the screen
+        screen.fill(background)
 
-    # Drawing code should go here
-    if is_menu == 1:
-        View_menu()
-    if react == 1:
-        React()
-    if aim == 1:
-        Difficulty()
+        # Drawing code should go here
+        if game_screen == "menu":
+            View_menu()
+        if game_screen == "react":
+            React()
+        if game_screen == "aim":
+            Difficulty()
 
     # Update the screen with what we've drawn
     pygame.display.flip()
