@@ -1,7 +1,10 @@
 import pygame.gfxdraw
 import random
+import openpyxl
+from openpyxl import Workbook
+from openpyxl import load_workbook
 
-# Initialize pygame
+# Initializing everything
 pygame.init()
 pygame.font.init()
 Title_Font = pygame.font.SysFont("Arial", 60)
@@ -17,6 +20,12 @@ name = ""
 split_name = []
 reaction_time = 0
 current_time = pygame.time.get_ticks()
+
+# Spreadsheet stuff
+wb = Workbook()
+wb = load_workbook("Precision.xlsx")
+ws = wb.active
+
 
 font = pygame.font.SysFont("Calibri", 30)
 
@@ -47,6 +56,14 @@ def Subtitle_text(text="NULL", color=white, position=(640, 360)):
     screen.blit(rendered_text, rendered_text_rect)
 
 
+def Write_Excel():
+    global name, final_average
+    ws["A1"] = name
+    ws["B1"] = f"{final_average:.0f} MS"
+    ws.insert_rows(1)
+    wb.save("Precision.xlsx")
+
+
 # Setting the title of the window
 pygame.display.set_caption("Reaction Time Test")
 
@@ -64,6 +81,12 @@ while not done:
         if event.type == pygame.QUIT:
             running = False
             pygame.quit()
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                ws.delete_cols(1, 2)
+                wb.save("Precision.xlsx")
+
         if event.type == pygame.KEYDOWN:
             if game_state == "start":
                 game_state = "wait"
@@ -138,15 +161,17 @@ while not done:
                 if event.key == pygame.K_BACKSPACE:
                     name = name[:-1]
                 if event.key == pygame.K_RETURN:
+                    Write_Excel()
                     game_state = "start"
                     count = 0
                     average_time = 0
                     reaction_time = 0
                     name = ""
 
+
     if game_state == "wait":
         if count >= 1:
-            Title_text(f"Reaction Time: {reaction_time}", white, (640, 600))
+            Title_text(f"Reaction Time: {reaction_time*1000:.0f} MS", white, (640, 600))
 
         if current_time >= start_time:
             game_state = "wait_for_reaction"
@@ -166,7 +191,7 @@ while not done:
             Title_text("Press Any Key", white)
 
             if count >= 1:
-                Title_text(f"Reaction Time: {reaction_time}", white, (640, 600))
+                Title_text(f"Reaction Time: {reaction_time*1000:.0f} MS", white, (640, 600))
 
     if game_state == "results":
         screen.fill(background)
