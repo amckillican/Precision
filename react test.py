@@ -137,6 +137,12 @@ while not done:
                     name += str(chr(event.key))
                 if event.key == pygame.K_BACKSPACE:
                     name = name[:-1]
+                if event.key == pygame.K_RETURN:
+                    game_state = "start"
+                    count = 0
+                    average_time = 0
+                    reaction_time = 0
+                    name = ""
 
     if game_state == "wait":
         if count >= 1:
