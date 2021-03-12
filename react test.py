@@ -1,6 +1,6 @@
-import pygame.gfxdraw
 import random
-import openpyxl
+
+import pygame.gfxdraw
 from openpyxl import Workbook
 from openpyxl import load_workbook
 
@@ -23,6 +23,7 @@ current_time = pygame.time.get_ticks()
 
 # Spreadsheet stuff
 wb = Workbook()
+# noinspection PyRedeclaration
 wb = load_workbook("Precision.xlsx")
 ws = wb.active
 
@@ -56,12 +57,17 @@ def Subtitle_text(text="NULL", color=white, position=(640, 360)):
     screen.blit(rendered_text, rendered_text_rect)
 
 
-def Write_Excel():
-    global name, final_average
+def Reset_and_save():
+    global name, final_average, game_state, count, average_time, reaction_time
     ws["A1"] = name
     ws["B1"] = f"{final_average:.0f} MS"
     ws.insert_rows(1)
     wb.save("Precision.xlsx")
+    game_state = "start"
+    count = 0
+    average_time = 0
+    reaction_time = 0
+    name = ""
 
 
 # Setting the title of the window
@@ -87,7 +93,7 @@ while not done:
                 ws.delete_cols(1, 2)
                 wb.save("Precision.xlsx")
 
-        if event.type == pygame.KEYDOWN:
+        if event.type == pygame.KEYDOWN and event.key != pygame.K_ESCAPE:
             if game_state == "start":
                 game_state = "wait"
 
@@ -161,13 +167,7 @@ while not done:
                 if event.key == pygame.K_BACKSPACE:
                     name = name[:-1]
                 if event.key == pygame.K_RETURN:
-                    Write_Excel()
-                    game_state = "start"
-                    count = 0
-                    average_time = 0
-                    reaction_time = 0
-                    name = ""
-
+                    Reset_and_save()
 
     if game_state == "wait":
         if count >= 1:
