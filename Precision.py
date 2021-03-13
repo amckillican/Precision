@@ -1,5 +1,5 @@
 # Importing modules
-import pygame, pygame.gfxdraw, random
+import pygame, pygame.gfxdraw
 
 # Variables
 game_screen = "menu"
@@ -7,14 +7,6 @@ done = False
 text = ""
 delay = 0
 center = (640, 360)
-start_time = 0
-average_time = 0
-difficulty = ""
-count = 0
-current_time = 0
-game_state = "start"
-reaction_time = 0
-name = ""
 
 # Initialing colors
 black = (0, 0, 0)
@@ -108,6 +100,7 @@ def View_menu():
 
 
 def Difficulty():
+    global game_screen
     pygame.Surface.fill(screen, background)
 
     # Rendering images
@@ -161,115 +154,12 @@ while not done:
 
         # Clearing the screen
         screen.fill(background)
-        print(game_state)
+
         # Drawing code should go here
         if game_screen == "menu":
             View_menu()
         if game_screen == "react":
-            if event.type == pygame.KEYDOWN:
-                if game_state == "start":
-                    game_state = "wait"
-
-                    if count >= 1:
-                        Title_text(f"Reaction Time: {reaction_time}", white, (640, 600))
-
-                    start_time = current_time + random.randint(1000, 4000)
-                if game_state == "wait_for_reaction":
-                    game_state = "wait"
-                    reaction_time = (current_time - start_time) / 1000
-                    start_time = current_time + random.randint(1000, 4000)
-                    count += 1
-                    average_time = ((average_time * (count - 1) + reaction_time) / count)
-
-            if game_state == "results":
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_a:
-                        name += str(chr(event.key))
-                    if event.key == pygame.K_b:
-                        name += str(chr(event.key))
-                    if event.key == pygame.K_c:
-                        name += str(chr(event.key))
-                    if event.key == pygame.K_d:
-                        name += str(chr(event.key))
-                    if event.key == pygame.K_e:
-                        name += str(chr(event.key))
-                    if event.key == pygame.K_f:
-                        name += str(chr(event.key))
-                    if event.key == pygame.K_g:
-                        name += str(chr(event.key))
-                    if event.key == pygame.K_h:
-                        name += str(chr(event.key))
-                    if event.key == pygame.K_i:
-                        name += str(chr(event.key))
-                    if event.key == pygame.K_j:
-                        name += str(chr(event.key))
-                    if event.key == pygame.K_k:
-                        name += str(chr(event.key))
-                    if event.key == pygame.K_l:
-                        name += str(chr(event.key))
-                    if event.key == pygame.K_m:
-                        name += str(chr(event.key))
-                    if event.key == pygame.K_n:
-                        name += str(chr(event.key))
-                    if event.key == pygame.K_o:
-                        name += str(chr(event.key))
-                    if event.key == pygame.K_p:
-                        name += str(chr(event.key))
-                    if event.key == pygame.K_q:
-                        name += str(chr(event.key))
-                    if event.key == pygame.K_r:
-                        name += str(chr(event.key))
-                    if event.key == pygame.K_s:
-                        name += str(chr(event.key))
-                    if event.key == pygame.K_t:
-                        name += str(chr(event.key))
-                    if event.key == pygame.K_u:
-                        name += str(chr(event.key))
-                    if event.key == pygame.K_v:
-                        name += str(chr(event.key))
-                    if event.key == pygame.K_w:
-                        name += str(chr(event.key))
-                    if event.key == pygame.K_x:
-                        name += str(chr(event.key))
-                    if event.key == pygame.K_y:
-                        name += str(chr(event.key))
-                    if event.key == pygame.K_z:
-                        name += str(chr(event.key))
-                    if event.key == pygame.K_SPACE:
-                        name += str(chr(event.key))
-                    if event.key == pygame.K_BACKSPACE:
-                        name = name[:-1]
-
-            if game_state == "wait":
-                if count >= 1:
-                    Title_text(f"Reaction Time: {reaction_time}", white, (640, 600))
-
-                if current_time >= start_time:
-                    game_state = "wait_for_reaction"
-
-                    # Clearing the screen
-                    screen.fill(background)
-
-            if count == 3:
-                game_state = "results"
-
-            if count < 3:
-                if game_state == "start":
-                    Title_text("Press Any Key To Start")
-                if game_state == "wait_for_reaction":
-                    Title_text("Press Any Key", white)
-
-                    if count >= 1:
-                        Title_text(f"Reaction Time: {reaction_time}", white, (640, 600))
-
-            if game_state == "results":
-                screen.fill(background)
-                final_average = average_time * 1000
-                Title_text("Average Reaction", white, (640, 100))
-                Title_text(f"Time: {final_average:.0f} MS", white, (640, 200))
-                Title_text("Please Type Your", white, (640, 450))
-                Title_text(f"Name: {name}", white, (640, 550))
-
+            print("test")
         if game_screen == "aim":
             Difficulty()
 

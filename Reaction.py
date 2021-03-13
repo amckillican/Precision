@@ -1,5 +1,4 @@
 import random
-
 import pygame.gfxdraw
 from openpyxl import Workbook
 from openpyxl import load_workbook
@@ -17,7 +16,6 @@ count = 0
 start_time = 0
 average_time = 0
 name = ""
-split_name = []
 reaction_time = 0
 current_time = pygame.time.get_ticks()
 
@@ -26,9 +24,6 @@ wb = Workbook()
 # noinspection PyRedeclaration
 wb = load_workbook("Precision.xlsx")
 ws = wb.active
-
-
-font = pygame.font.SysFont("Calibri", 30)
 
 # Initialing colors
 black = (0, 0, 0)
@@ -171,14 +166,13 @@ while not done:
 
     if game_state == "wait":
         if count >= 1:
-            Title_text(f"Reaction Time: {reaction_time*1000:.0f} MS", white, (640, 600))
+            Title_text(f"Reaction Time: {reaction_time * 1000:.0f} MS", white, (640, 600))
 
         if current_time >= start_time:
             game_state = "wait_for_reaction"
 
             # Clearing the screen
             screen.fill(background)
-
 
     if count == 3:
         game_state = "results"
@@ -191,7 +185,7 @@ while not done:
             Title_text("Press Any Key", white)
 
             if count >= 1:
-                Title_text(f"Reaction Time: {reaction_time*1000:.0f} MS", white, (640, 600))
+                Title_text(f"Reaction Time: {reaction_time * 1000:.0f} MS", white, (640, 600))
 
     if game_state == "results":
         screen.fill(background)
