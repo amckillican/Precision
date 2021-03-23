@@ -1,14 +1,17 @@
 import pygame.gfxdraw
 import random
-import openpyxl
 from openpyxl import Workbook
 from openpyxl import load_workbook
+import PyTouchBar
 
 # Initializing everything
 pygame.init()
 pygame.font.init()
+screen = pygame.display.set_mode((1280, 720))
+PyTouchBar.prepare_pygame()
 Title_Font = pygame.font.SysFont("Arial", 60)
 Subtitle_font = pygame.font.SysFont("Arial", 30)
+label = PyTouchBar.TouchBarItems.Label(text='Foo Bar')
 
 # Variables
 done = False
@@ -26,9 +29,6 @@ wb = Workbook()
 wb = load_workbook("Precision.xlsx")
 ws = wb.active
 
-
-font = pygame.font.SysFont("Calibri", 30)
-
 # Initialing colors
 black = (0, 0, 0)
 white = (255, 255, 255)
@@ -36,10 +36,6 @@ red = (255, 0, 0)
 green = (0, 255, 0)
 blue = (0, 0, 255)
 background = (39, 41, 44)
-
-# Set the width and height of the screen [width, height]
-res = (1280, 720)
-screen = pygame.display.set_mode(res)
 
 
 # Render some text
@@ -56,13 +52,21 @@ def Subtitle_text(text="NULL", color=white, position=(640, 360)):
     screen.blit(rendered_text, rendered_text_rect)
 
 
-def Write_Excel():
-    global name, final_average
+def Write_excel():
+    global name, final_average, game_state, count, average_time, reaction_time
+    ws.insert_rows(1)
     ws["A1"] = name
     ws["B1"] = f"{final_average:.0f} MS"
-    ws.insert_rows(1)
     wb.save("Precision.xlsx")
+    game_state = "start"
+    count = 0
+    average_time = 0
+    reaction_time = 0
+    name = ""
 
+def Clear_excel():
+    ws.delete_cols(1, 2)
+    wb.save("Precision.xlsx")
 
 # Setting the title of the window
 pygame.display.set_caption("Reaction Time Test")
@@ -77,6 +81,8 @@ while not done:
     screen.fill(background)
     current_time = pygame.time.get_ticks()
 
+
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -84,8 +90,7 @@ while not done:
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
-                ws.delete_cols(1, 2)
-                wb.save("Precision.xlsx")
+                Clear_excel()
 
         if event.type == pygame.KEYDOWN:
             if game_state == "start":
@@ -161,24 +166,17 @@ while not done:
                 if event.key == pygame.K_BACKSPACE:
                     name = name[:-1]
                 if event.key == pygame.K_RETURN:
-                    Write_Excel()
-                    game_state = "start"
-                    count = 0
-                    average_time = 0
-                    reaction_time = 0
-                    name = ""
-
+                    Write_excel()
 
     if game_state == "wait":
         if count >= 1:
-            Title_text(f"Reaction Time: {reaction_time*1000:.0f} MS", white, (640, 600))
+            Title_text(f"Reaction Time: {reaction_time * 1000:.0f} MS", white, (640, 600))
 
         if current_time >= start_time:
             game_state = "wait_for_reaction"
 
             # Clearing the screen
             screen.fill(background)
-
 
     if count == 3:
         game_state = "results"
@@ -191,7 +189,7 @@ while not done:
             Title_text("Press Any Key", white)
 
             if count >= 1:
-                Title_text(f"Reaction Time: {reaction_time*1000:.0f} MS", white, (640, 600))
+                Title_text(f"Reaction Time: {reaction_time * 1000:.0f} MS", white, (640, 600))
 
     if game_state == "results":
         screen.fill(background)
