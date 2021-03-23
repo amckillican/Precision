@@ -81,14 +81,14 @@ def React_score_disp():
     name4 = f"4. {ws['A4'].value}"
     name5 = f"5. {ws['A5'].value}"
 
-    score1 = ws['B1'].value
-    score2 = ws['B2'].value
-    score3 = ws['B3'].value
-    score4 = ws['B4'].value
-    score5 = ws['B5'].value
+    score1 = f"{ws['B1'].value} MS"
+    score2 = f"{ws['B2'].value} MS"
+    score3 = f"{ws['B3'].value} MS"
+    score4 = f"{ws['B4'].value} MS"
+    score5 = f"{ws['B5'].value} MS"
 
     if name1 != "1. None":
-        Subtitle_text(text="Top Reaction Time", color=white, position=[270, 325])
+        Subtitle_text(text="Top Reaction Times", color=white, position=[270, 325])
         Subtitle_textL(text=name1, color=white, position=[95, 375])
         Subtitle_textL(text=score1, color=white, position=[350, 375])
     if name2 != "2. None":

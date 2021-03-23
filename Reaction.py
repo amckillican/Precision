@@ -55,7 +55,8 @@ def Write_excel():
     global name, final_average, game_state, count, average_time, reaction_time
     ws.insert_rows(1)
     ws["A1"] = name
-    ws["B1"] = f"{final_average:.0f} MS"
+    ws["B1"] = f"{final_average:.0f}"
+
     wb.save("Precision.xlsx")
     game_state = "start"
     count = 0
