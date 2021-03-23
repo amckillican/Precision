@@ -1,13 +1,18 @@
-import random
 import pygame.gfxdraw
+import random
 from openpyxl import Workbook
 from openpyxl import load_workbook
+import PyTouchBar
 
 # Initializing everything
 pygame.init()
 pygame.font.init()
+screen = pygame.display.set_mode((1280, 720))
+PyTouchBar.prepare_pygame()
 Title_Font = pygame.font.SysFont("Arial", 60)
 Subtitle_font = pygame.font.SysFont("Arial", 30)
+pygame.display.set_caption("Reaction Time Test")
+clock = pygame.time.Clock()
 
 # Variables
 done = False
@@ -16,12 +21,12 @@ count = 0
 start_time = 0
 average_time = 0
 name = ""
+split_name = []
 reaction_time = 0
 current_time = pygame.time.get_ticks()
 
 # Spreadsheet stuff
 wb = Workbook()
-# noinspection PyRedeclaration
 wb = load_workbook("Precision.xlsx")
 ws = wb.active
 
@@ -33,14 +38,10 @@ green = (0, 255, 0)
 blue = (0, 0, 255)
 background = (39, 41, 44)
 
-# Set the width and height of the screen [width, height]
-res = (1280, 720)
-screen = pygame.display.set_mode(res)
-
 
 # Render some text
 def Title_text(text="NULL", color=white, position=(640, 360)):
-    rendered_text = (Title_Font.render(text, True, color))
+    rendered_text = Title_Font.render(text, True, color)
     rendered_text_rect = rendered_text.get_rect(center=position)
     screen.blit(rendered_text, rendered_text_rect)
 
@@ -52,11 +53,11 @@ def Subtitle_text(text="NULL", color=white, position=(640, 360)):
     screen.blit(rendered_text, rendered_text_rect)
 
 
-def Reset_and_save():
+def Write_excel():
     global name, final_average, game_state, count, average_time, reaction_time
+    ws.insert_rows(1)
     ws["A1"] = name
     ws["B1"] = f"{final_average:.0f} MS"
-    ws.insert_rows(1)
     wb.save("Precision.xlsx")
     game_state = "start"
     count = 0
@@ -65,12 +66,10 @@ def Reset_and_save():
     name = ""
 
 
-# Setting the title of the window
-pygame.display.set_caption("Reaction Time Test")
+def Clear_excel():
+    ws.delete_cols(1, 2)
+    wb.save("Precision.xlsx")
 
-# Setting the screen refresh rate
-fps = 60
-clock = pygame.time.Clock()
 
 # Main program loop
 while not done:
@@ -80,15 +79,13 @@ while not done:
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            running = False
-            pygame.quit()
+            quit()
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
-                ws.delete_cols(1, 2)
-                wb.save("Precision.xlsx")
+                Clear_excel()
 
-        if event.type == pygame.KEYDOWN and event.key != pygame.K_ESCAPE:
+        if event.type == pygame.KEYDOWN:
             if game_state == "start":
                 game_state = "wait"
 
@@ -162,7 +159,7 @@ while not done:
                 if event.key == pygame.K_BACKSPACE:
                     name = name[:-1]
                 if event.key == pygame.K_RETURN:
-                    Reset_and_save()
+                    Write_excel()
 
     if game_state == "wait":
         if count >= 1:
@@ -178,7 +175,6 @@ while not done:
         game_state = "results"
 
     if count < 3:
-        center = screen.get_rect().center
         if game_state == "start":
             Title_text("Press Any Key To Start")
         if game_state == "wait_for_reaction":
@@ -199,7 +195,7 @@ while not done:
     pygame.display.flip()
 
     # Limit to 60 fps
-    clock.tick(fps)
+    clock.tick(60)
 
 # Close the window and quit
 pygame.quit()
