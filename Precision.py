@@ -4,18 +4,17 @@ import pygame.gfxdraw
 from openpyxl import Workbook
 from openpyxl import load_workbook
 
-# Variables
-game_screen = "menu"
-done = False
-delay = 0
-center = (640, 360)
-start_time = 0
-average_time = 0
-difficulty = ""
-count = 0
-current_time = 0
-reaction_time = 0
-name = ""
+# Initializing everything
+pygame.init()
+pygame.font.init()
+screen = pygame.display.set_mode((1280, 720))
+Title_Font = pygame.font.SysFont("Arial", 60)
+Subtitle_font = pygame.font.SysFont("Arial", 30)
+pygame.display.set_caption("Precision")
+clock = pygame.time.Clock()
+wb = Workbook()
+wb = load_workbook("Precision.xlsx", data_only=True)
+ws = wb.active
 
 # Initialing colors
 black = (0, 0, 0)
@@ -25,14 +24,18 @@ green = (0, 255, 0)
 blue = (0, 0, 255)
 background = (39, 41, 44)
 
-# Initializing everything
-pygame.init()
-pygame.font.init()
-screen = pygame.display.set_mode((1280, 720))
-Title_Font = pygame.font.SysFont("Arial", 60)
-Subtitle_font = pygame.font.SysFont("Arial", 30)
-pygame.display.set_caption("Precision")
-clock = pygame.time.Clock()
+# Variables
+game_screen = "menu"
+difficulty = ""
+name = ""
+center = (640, 360)
+delay = 0
+start_time = 0
+average_time = 0
+count = 0
+current_time = 0
+reaction_time = 0
+done = False
 
 # Initialize images
 aim_button = pygame.image.load("main_menu/aim_button.png").convert_alpha(screen)
@@ -71,11 +74,40 @@ def Subtitle_textL(text="NULL", color=white, position=(640, 360)):
     screen.blit(rendered_text, rendered_text_rect)
 
 
+def React_score_disp():
+    name1 = f"1. {ws['A1'].value}"
+    name2 = f"2. {ws['A2'].value}"
+    name3 = f"3. {ws['A3'].value}"
+    name4 = f"4. {ws['A4'].value}"
+    name5 = f"5. {ws['A5'].value}"
+
+    score1 = ws['B1'].value
+    score2 = ws['B2'].value
+    score3 = ws['B3'].value
+    score4 = ws['B4'].value
+    score5 = ws['B5'].value
+
+    if name1 != "1. None":
+        Subtitle_text(text="Top Reaction Time", color=white, position=[270, 325])
+        Subtitle_textL(text=name1, color=white, position=[95, 375])
+        Subtitle_textL(text=score1, color=white, position=[350, 375])
+    if name2 != "2. None":
+        Subtitle_textL(text=name2, color=white, position=[95, 425])
+        Subtitle_textL(text=score2, color=white, position=[350, 425])
+    if name3 != "3. None":
+        Subtitle_textL(text=name3, color=white, position=[95, 475])
+        Subtitle_textL(text=score3, color=white, position=[350, 475])
+    if name4 != "4. None":
+        Subtitle_textL(text=name4, color=white, position=[95, 525])
+        Subtitle_textL(text=score4, color=white, position=[350, 525])
+    if name5 != "5. None":
+        Subtitle_textL(text=name5, color=white, position=[95, 575])
+        Subtitle_textL(text=score5, color=white, position=[350, 575])
+
+
 # View the menu
 def View_menu():
     global game_screen
-
-    score_1 = ""
 
     # Clear the screen
     pygame.Surface.fill(screen, background)
@@ -86,8 +118,7 @@ def View_menu():
     screen.blit(aim_button, [538, 410])
     screen.blit(quit_button, [538, 558])
 
-    Subtitle_text(text="Top Reaction Time:", color=white, position=[270, 325])
-    Subtitle_textL(text=f"1. {score_1}", color=white, position=[150, 375])
+    React_score_disp()
 
     # Highlighting the buttons if the mouse is overtop of it
     if reaction_button.get_rect(topleft=[538, 262]).collidepoint(pygame.mouse.get_pos()):
@@ -120,7 +151,7 @@ def View_menu():
 
 
 def Difficulty():
-    global game_screen
+    global game_screen, difficulty
 
     pygame.Surface.fill(screen, background)
 

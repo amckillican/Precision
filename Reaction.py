@@ -2,33 +2,31 @@ import pygame.gfxdraw
 import random
 from openpyxl import Workbook
 from openpyxl import load_workbook
-import PyTouchBar
+# import PyTouchBar
 
 # Initializing everything
 pygame.init()
 pygame.font.init()
 screen = pygame.display.set_mode((1280, 720))
-PyTouchBar.prepare_pygame()
+# PyTouchBar.prepare_pygame()
 Title_Font = pygame.font.SysFont("Arial", 60)
 Subtitle_font = pygame.font.SysFont("Arial", 30)
 pygame.display.set_caption("Reaction Time Test")
 clock = pygame.time.Clock()
-
-# Variables
-done = False
-game_state = "start"
-count = 0
-start_time = 0
-average_time = 0
-name = ""
-split_name = []
-reaction_time = 0
-current_time = pygame.time.get_ticks()
-
-# Spreadsheet stuff
 wb = Workbook()
 wb = load_workbook("Precision.xlsx")
 ws = wb.active
+
+# Variables
+current_time = pygame.time.get_ticks()
+game_state = "start"
+name = ""
+count = 0
+start_time = 0
+average_time = 0
+reaction_time = 0
+split_name = []
+done = False
 
 # Initialing colors
 black = (0, 0, 0)
