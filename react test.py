@@ -11,7 +11,8 @@ screen = pygame.display.set_mode((1280, 720))
 PyTouchBar.prepare_pygame()
 Title_Font = pygame.font.SysFont("Arial", 60)
 Subtitle_font = pygame.font.SysFont("Arial", 30)
-label = PyTouchBar.TouchBarItems.Label(text='Foo Bar')
+pygame.display.set_caption("Reaction Time Test")
+clock = pygame.time.Clock()
 
 # Variables
 done = False
@@ -40,7 +41,7 @@ background = (39, 41, 44)
 
 # Render some text
 def Title_text(text="NULL", color=white, position=(640, 360)):
-    rendered_text = (Title_Font.render(text, True, color))
+    rendered_text = Title_Font.render(text, True, color)
     rendered_text_rect = rendered_text.get_rect(center=position)
     screen.blit(rendered_text, rendered_text_rect)
 
@@ -64,24 +65,17 @@ def Write_excel():
     reaction_time = 0
     name = ""
 
+
 def Clear_excel():
     ws.delete_cols(1, 2)
     wb.save("Precision.xlsx")
 
-# Setting the title of the window
-pygame.display.set_caption("Reaction Time Test")
-
-# Setting the screen refresh rate
-fps = 60
-clock = pygame.time.Clock()
 
 # Main program loop
 while not done:
     # Main event loop
     screen.fill(background)
     current_time = pygame.time.get_ticks()
-
-
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -182,7 +176,6 @@ while not done:
         game_state = "results"
 
     if count < 3:
-        center = screen.get_rect().center
         if game_state == "start":
             Title_text("Press Any Key To Start")
         if game_state == "wait_for_reaction":
@@ -203,7 +196,7 @@ while not done:
     pygame.display.flip()
 
     # Limit to 60 fps
-    clock.tick(fps)
+    clock.tick(60)
 
 # Close the window and quit
 pygame.quit()
