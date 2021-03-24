@@ -2,6 +2,7 @@ import pygame.gfxdraw
 import random
 from openpyxl import Workbook
 from openpyxl import load_workbook
+
 # import PyTouchBar
 
 # Initializing everything
@@ -101,64 +102,36 @@ while not done:
 
         if game_state == "results":
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_a:
-                    name += str(chr(event.key))
-                if event.key == pygame.K_b:
-                    name += str(chr(event.key))
-                if event.key == pygame.K_c:
-                    name += str(chr(event.key))
-                if event.key == pygame.K_d:
-                    name += str(chr(event.key))
-                if event.key == pygame.K_e:
-                    name += str(chr(event.key))
-                if event.key == pygame.K_f:
-                    name += str(chr(event.key))
-                if event.key == pygame.K_g:
-                    name += str(chr(event.key))
-                if event.key == pygame.K_h:
-                    name += str(chr(event.key))
-                if event.key == pygame.K_i:
-                    name += str(chr(event.key))
-                if event.key == pygame.K_j:
-                    name += str(chr(event.key))
-                if event.key == pygame.K_k:
-                    name += str(chr(event.key))
-                if event.key == pygame.K_l:
-                    name += str(chr(event.key))
-                if event.key == pygame.K_m:
-                    name += str(chr(event.key))
-                if event.key == pygame.K_n:
-                    name += str(chr(event.key))
-                if event.key == pygame.K_o:
-                    name += str(chr(event.key))
-                if event.key == pygame.K_p:
-                    name += str(chr(event.key))
-                if event.key == pygame.K_q:
-                    name += str(chr(event.key))
-                if event.key == pygame.K_r:
-                    name += str(chr(event.key))
-                if event.key == pygame.K_s:
-                    name += str(chr(event.key))
-                if event.key == pygame.K_t:
-                    name += str(chr(event.key))
-                if event.key == pygame.K_u:
-                    name += str(chr(event.key))
-                if event.key == pygame.K_v:
-                    name += str(chr(event.key))
-                if event.key == pygame.K_w:
-                    name += str(chr(event.key))
-                if event.key == pygame.K_x:
-                    name += str(chr(event.key))
-                if event.key == pygame.K_y:
-                    name += str(chr(event.key))
-                if event.key == pygame.K_z:
-                    name += str(chr(event.key))
-                if event.key == pygame.K_SPACE:
-                    name += str(chr(event.key))
-                if event.key == pygame.K_BACKSPACE:
-                    name = name[:-1]
-                if event.key == pygame.K_RETURN:
-                    Write_excel()
+                if len(name) <= 9:
+                    if event.key == pygame.K_a: name += str(chr(event.key))
+                    if event.key == pygame.K_b: name += str(chr(event.key))
+                    if event.key == pygame.K_c: name += str(chr(event.key))
+                    if event.key == pygame.K_d: name += str(chr(event.key))
+                    if event.key == pygame.K_e: name += str(chr(event.key))
+                    if event.key == pygame.K_f: name += str(chr(event.key))
+                    if event.key == pygame.K_g: name += str(chr(event.key))
+                    if event.key == pygame.K_h: name += str(chr(event.key))
+                    if event.key == pygame.K_i: name += str(chr(event.key))
+                    if event.key == pygame.K_j: name += str(chr(event.key))
+                    if event.key == pygame.K_k: name += str(chr(event.key))
+                    if event.key == pygame.K_l: name += str(chr(event.key))
+                    if event.key == pygame.K_m: name += str(chr(event.key))
+                    if event.key == pygame.K_n: name += str(chr(event.key))
+                    if event.key == pygame.K_o: name += str(chr(event.key))
+                    if event.key == pygame.K_p: name += str(chr(event.key))
+                    if event.key == pygame.K_q: name += str(chr(event.key))
+                    if event.key == pygame.K_r: name += str(chr(event.key))
+                    if event.key == pygame.K_s: name += str(chr(event.key))
+                    if event.key == pygame.K_t: name += str(chr(event.key))
+                    if event.key == pygame.K_u: name += str(chr(event.key))
+                    if event.key == pygame.K_v: name += str(chr(event.key))
+                    if event.key == pygame.K_w: name += str(chr(event.key))
+                    if event.key == pygame.K_x: name += str(chr(event.key))
+                    if event.key == pygame.K_y: name += str(chr(event.key))
+                    if event.key == pygame.K_z: name += str(chr(event.key))
+                    if event.key == pygame.K_SPACE: name += str(chr(event.key))
+                if event.key == pygame.K_BACKSPACE: name = name[:-1]
+                if event.key == pygame.K_RETURN: Write_excel()
 
     if game_state == "wait":
         if count >= 1:
