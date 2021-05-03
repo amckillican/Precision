@@ -1,7 +1,5 @@
 import pygame.gfxdraw
 import random
-from openpyxl import Workbook
-from openpyxl import load_workbook
 
 # Initializing everything
 pygame.init()
@@ -11,9 +9,8 @@ Title_Font = pygame.font.SysFont("Arial", 60)
 Subtitle_font = pygame.font.SysFont("Arial", 30)
 pygame.display.set_caption("Reaction Time Test")
 clock = pygame.time.Clock()
-wb = Workbook()
-wb = load_workbook("Precision.xlsx")
-ws = wb.active
+names_file = open("names_file.txt", "a")
+times_file = open("times_file.txt", "a")
 
 # Variables
 current_time = pygame.time.get_ticks()
@@ -50,24 +47,16 @@ def Subtitle_text(text="NULL", color=white, position=(640, 360)):
 
 
 # Updating the excel sheet
-def Write_excel():
+def Write_data():
     global name, final_average, game_state, count, average_time, reaction_time
-    ws.insert_rows(1)
-    ws["A1"] = name
-    ws["B1"] = f"{final_average:.0f}"
+    names_file.write(f"{name}\n")
+    times_file.write(f"{final_average:.0f}\n")
 
-    wb.save("Precision.xlsx")
     game_state = "start"
     count = 0
     average_time = 0
     reaction_time = 0
     name = ""
-
-
-# Clearing the excel sheet
-def Clear_excel():
-    ws.delete_cols(1, 2)
-    wb.save("Precision.xlsx")
 
 
 # Main program loop
@@ -79,12 +68,9 @@ while not done:
     # Tracking events
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
+            names_file.close()
+            times_file.close()
             quit()
-
-        # Clearing the excel sheet
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_ESCAPE:
-                Clear_excel()
 
         # If key is pressed
         if event.type == pygame.KEYDOWN:
@@ -137,7 +123,7 @@ while not done:
                     if event.key == pygame.K_z: name += str(chr(event.key))
                     if event.key == pygame.K_SPACE: name += str(chr(event.key))
                 if event.key == pygame.K_BACKSPACE: name = name[:-1]
-                if event.key == pygame.K_RETURN: Write_excel()
+                if event.key == pygame.K_RETURN: Write_data()
 
     # Showing the previous reaction time
     if game_state == "wait":

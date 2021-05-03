@@ -1,6 +1,8 @@
 # Importing modules
 import pygame
 import pygame.gfxdraw
+from openpyxl import Workbook
+from openpyxl import load_workbook
 
 # Initializing everything
 pygame.init()
@@ -10,8 +12,9 @@ Title_Font = pygame.font.SysFont("Arial", 60)
 Subtitle_font = pygame.font.SysFont("Arial", 30)
 pygame.display.set_caption("Precision")
 clock = pygame.time.Clock()
-names_file = open("names_file.txt", "r")
-times_file = open("times_file.txt", "r")
+wb = Workbook()
+wb = load_workbook("Precision.xlsx", data_only=True)
+ws = wb.active
 
 # Initialing colors
 black = (0, 0, 0)
@@ -72,12 +75,6 @@ def Subtitle_textL(text="NULL", color=white, position=(640, 360)):
 
 
 def React_score_disp():
-    lowest = times_file.read(0)
-    for line_numbers in times_file:
-        if times_file.read(int(line_numbers)) >= lowest:
-            lowest = times_file.read(int(line_numbers))
-
-
     name1 = f"1. {ws['A1'].value}"
     name2 = f"2. {ws['A2'].value}"
     name3 = f"3. {ws['A3'].value}"
@@ -90,22 +87,22 @@ def React_score_disp():
     score4 = f"{ws['B4'].value} MS"
     score5 = f"{ws['B5'].value} MS"
 
-    # if name1 != "1. None":
-    #     Subtitle_text(text="Top Reaction Times", color=white, position=[270, 325])
-    #     Subtitle_textL(text=name1, color=white, position=[95, 375])
-    #     Subtitle_textL(text=score1, color=white, position=[350, 375])
-    # if name2 != "2. None":
-    #     Subtitle_textL(text=name2, color=white, position=[95, 425])
-    #     Subtitle_textL(text=score2, color=white, position=[350, 425])
-    # if name3 != "3. None":
-    #     Subtitle_textL(text=name3, color=white, position=[95, 475])
-    #     Subtitle_textL(text=score3, color=white, position=[350, 475])
-    # if name4 != "4. None":
-    #     Subtitle_textL(text=name4, color=white, position=[95, 525])
-    #     Subtitle_textL(text=score4, color=white, position=[350, 525])
-    # if name5 != "5. None":
-    #     Subtitle_textL(text=name5, color=white, position=[95, 575])
-    #     Subtitle_textL(text=score5, color=white, position=[350, 575])
+    if name1 != "1. None":
+        Subtitle_text(text="Top Reaction Times", color=white, position=[270, 325])
+        Subtitle_textL(text=name1, color=white, position=[95, 375])
+        Subtitle_textL(text=score1, color=white, position=[350, 375])
+    if name2 != "2. None":
+        Subtitle_textL(text=name2, color=white, position=[95, 425])
+        Subtitle_textL(text=score2, color=white, position=[350, 425])
+    if name3 != "3. None":
+        Subtitle_textL(text=name3, color=white, position=[95, 475])
+        Subtitle_textL(text=score3, color=white, position=[350, 475])
+    if name4 != "4. None":
+        Subtitle_textL(text=name4, color=white, position=[95, 525])
+        Subtitle_textL(text=score4, color=white, position=[350, 525])
+    if name5 != "5. None":
+        Subtitle_textL(text=name5, color=white, position=[95, 575])
+        Subtitle_textL(text=score5, color=white, position=[350, 575])
 
 
 # View the menu
