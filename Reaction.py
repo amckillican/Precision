@@ -3,13 +3,10 @@ import random
 from openpyxl import Workbook
 from openpyxl import load_workbook
 
-# import PyTouchBar
-
 # Initializing everything
 pygame.init()
 pygame.font.init()
 screen = pygame.display.set_mode((1280, 720))
-# PyTouchBar.prepare_pygame()
 Title_Font = pygame.font.SysFont("Arial", 60)
 Subtitle_font = pygame.font.SysFont("Arial", 30)
 pygame.display.set_caption("Reaction Time Test")
@@ -52,6 +49,7 @@ def Subtitle_text(text="NULL", color=white, position=(640, 360)):
     screen.blit(rendered_text, rendered_text_rect)
 
 
+# Updating the excel sheet
 def Write_excel():
     global name, final_average, game_state, count, average_time, reaction_time
     ws.insert_rows(1)
@@ -66,6 +64,7 @@ def Write_excel():
     name = ""
 
 
+# Clearing the excel sheet
 def Clear_excel():
     ws.delete_cols(1, 2)
     wb.save("Precision.xlsx")
@@ -77,22 +76,28 @@ while not done:
     screen.fill(background)
     current_time = pygame.time.get_ticks()
 
+    # Tracking events
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             quit()
 
+        # Clearing the excel sheet
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 Clear_excel()
 
+        # If key is pressed
         if event.type == pygame.KEYDOWN:
             if game_state == "start":
                 game_state = "wait"
 
+                # Run the game 3 times in a row
                 if count >= 1:
                     Title_text(f"Reaction Time: {reaction_time}", white, (640, 600))
 
                 start_time = current_time + random.randint(1000, 4000)
+
+            # Measure the reaction time
             if game_state == "wait_for_reaction":
                 game_state = "wait"
                 reaction_time = (current_time - start_time) / 1000
@@ -100,6 +105,7 @@ while not done:
                 count += 1
                 average_time = ((average_time * (count - 1) + reaction_time) / count)
 
+        # Saving the users name and time
         if game_state == "results":
             if event.type == pygame.KEYDOWN:
                 if len(name) <= 9:
@@ -133,6 +139,7 @@ while not done:
                 if event.key == pygame.K_BACKSPACE: name = name[:-1]
                 if event.key == pygame.K_RETURN: Write_excel()
 
+    # Showing the previous reaction time
     if game_state == "wait":
         if count >= 1:
             Title_text(f"Reaction Time: {reaction_time * 1000:.0f} MS", white, (640, 600))
@@ -143,18 +150,21 @@ while not done:
             # Clearing the screen
             screen.fill(background)
 
+    # After 3 tries display the results
     if count == 3:
         game_state = "results"
 
+    # Prompt the user to start
     if count < 3:
         if game_state == "start":
             Title_text("Press Any Key To Start")
         if game_state == "wait_for_reaction":
-            Title_text("Press Any Key", white)
+            Title_text("Press Any Key")
 
             if count >= 1:
                 Title_text(f"Reaction Time: {reaction_time * 1000:.0f} MS", white, (640, 600))
 
+    # Saving the users name and reaction time
     if game_state == "results":
         screen.fill(background)
         final_average = average_time * 1000
