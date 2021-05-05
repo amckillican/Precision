@@ -71,24 +71,24 @@ def Subtitle_textL(text="NULL", color=white, position=(640, 360)):
     screen.blit(rendered_text, rendered_text_rect)
 
 
-def React_score_disp():
-    lowest = times_file.read(0)
-    for line_numbers in times_file:
-        if times_file.read(int(line_numbers)) >= lowest:
-            lowest = times_file.read(int(line_numbers))
-
-
-    name1 = f"1. {ws['A1'].value}"
-    name2 = f"2. {ws['A2'].value}"
-    name3 = f"3. {ws['A3'].value}"
-    name4 = f"4. {ws['A4'].value}"
-    name5 = f"5. {ws['A5'].value}"
-
-    score1 = f"{ws['B1'].value} MS"
-    score2 = f"{ws['B2'].value} MS"
-    score3 = f"{ws['B3'].value} MS"
-    score4 = f"{ws['B4'].value} MS"
-    score5 = f"{ws['B5'].value} MS"
+# def React_score_disp():
+#     lowest = times_file.read(0)
+#     for line_numbers in times_file:
+#         if times_file.read(int(line_numbers)) >= lowest:
+#             lowest = times_file.read(int(line_numbers))
+#
+#
+#     name1 = f"1. {ws['A1'].value}"
+#     name2 = f"2. {ws['A2'].value}"
+#     name3 = f"3. {ws['A3'].value}"
+#     name4 = f"4. {ws['A4'].value}"
+#     name5 = f"5. {ws['A5'].value}"
+#
+#     score1 = f"{ws['B1'].value} MS"
+#     score2 = f"{ws['B2'].value} MS"
+#     score3 = f"{ws['B3'].value} MS"
+#     score4 = f"{ws['B4'].value} MS"
+#     score5 = f"{ws['B5'].value} MS"
 
     # if name1 != "1. None":
     #     Subtitle_text(text="Top Reaction Times", color=white, position=[270, 325])
@@ -121,7 +121,7 @@ def View_menu():
     screen.blit(aim_button, [538, 410])
     screen.blit(quit_button, [538, 558])
 
-    React_score_disp()
+    # React_score_disp()
 
     # Highlighting the buttons if the mouse is overtop of it
     if reaction_button.get_rect(topleft=[538, 262]).collidepoint(pygame.mouse.get_pos()):

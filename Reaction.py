@@ -1,3 +1,4 @@
+# Importing modules
 import pygame.gfxdraw
 import random
 
