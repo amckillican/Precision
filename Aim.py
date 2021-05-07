@@ -1,5 +1,6 @@
 # Importing modules
 import pygame.gfxdraw
+import random
 
 # Initializing everything
 pygame.init()
@@ -16,6 +17,9 @@ times_file = open("times_file.txt", "a")
 current_time = pygame.time.get_ticks()
 game_state = "start"
 name = ""
+beginning = 0
+new_target = 1
+score = 0
 count = 0
 start_time = 0
 average_time = 0
@@ -30,6 +34,11 @@ red = (255, 0, 0)
 green = (0, 255, 0)
 blue = (0, 0, 255)
 background = (39, 41, 44)
+
+# Initializing images
+red_target_image = pygame.transform.scale((pygame.image.load("targets/RED.png").convert_alpha(screen)), [100, 100])
+blue_target_image = pygame.transform.scale((pygame.image.load("targets/BLUE.png").convert_alpha(screen)), [100, 100])
+orange_target_image = pygame.transform.scale((pygame.image.load("targets/ORANGE.png").convert_alpha(screen)), [100, 100])
 
 
 # Render some text
@@ -49,7 +58,9 @@ def Subtitle_text(text="NULL", color=white, position=(640, 360)):
 # Main program loop
 while not done:
     # Main event loop
-    screen.fill(background)
+    if beginning == 0:
+        screen.fill(background)
+        beginning = 1
     current_time = pygame.time.get_ticks()
 
     # Tracking events
@@ -60,15 +71,26 @@ while not done:
             quit()
 
         if game_state == "start":
-            if pygame.mouse.get_pressed(3)[0] == 1:
+            Title_text("Click To Start")
+
+        if game_state == "start":
+            if pygame.mouse.get_pressed(num_buttons=3)[0] == 1:
+                screen.fill(background)
+                start_time = current_time
                 game_state = "react"
 
-        if game_state == "react":
-            if pygame.mouse.get_pressed(3)[0] == 1:
-                print("clicked target placeholder")
+        if game_state == "react" and current_time - start_time <= 60:
+            if new_target == 1:
+                horizontal_red = random.randint(0, 1020)
+                vertical_red = random.randint(0, 520)
+                screen.blit(red_target_image, [horizontal_red, vertical_red])
+                new_target = 0
+            if new_target == 0 and pygame.mouse.get_pressed(num_buttons=3)[0] == 1 and red_target_image.get_rect(
+                    topleft=[horizontal_red, vertical_red]).collidepoint(pygame.mouse.get_pos()):
+                screen.fill(background)
+                score += 500
+                new_target = 1
 
-    if game_state == "start":
-        Title_text("Click To Start")
 
     pygame.display.flip()
 

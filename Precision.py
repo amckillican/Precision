@@ -1,5 +1,4 @@
 # Importing modules
-import pygame
 import pygame.gfxdraw
 
 # Initializing everything
@@ -76,123 +75,6 @@ def Subtitle_textL(text="NULL", color=white, position=(640, 360)):
 #     for line_numbers in times_file:
 #         if times_file.read(int(line_numbers)) >= lowest:
 #             lowest = times_file.read(int(line_numbers))
-#
-#
-#     name1 = f"1. {ws['A1'].value}"
-#     name2 = f"2. {ws['A2'].value}"
-#     name3 = f"3. {ws['A3'].value}"
-#     name4 = f"4. {ws['A4'].value}"
-#     name5 = f"5. {ws['A5'].value}"
-#
-#     score1 = f"{ws['B1'].value} MS"
-#     score2 = f"{ws['B2'].value} MS"
-#     score3 = f"{ws['B3'].value} MS"
-#     score4 = f"{ws['B4'].value} MS"
-#     score5 = f"{ws['B5'].value} MS"
-
-    # if name1 != "1. None":
-    #     Subtitle_text(text="Top Reaction Times", color=white, position=[270, 325])
-    #     Subtitle_textL(text=name1, color=white, position=[95, 375])
-    #     Subtitle_textL(text=score1, color=white, position=[350, 375])
-    # if name2 != "2. None":
-    #     Subtitle_textL(text=name2, color=white, position=[95, 425])
-    #     Subtitle_textL(text=score2, color=white, position=[350, 425])
-    # if name3 != "3. None":
-    #     Subtitle_textL(text=name3, color=white, position=[95, 475])
-    #     Subtitle_textL(text=score3, color=white, position=[350, 475])
-    # if name4 != "4. None":
-    #     Subtitle_textL(text=name4, color=white, position=[95, 525])
-    #     Subtitle_textL(text=score4, color=white, position=[350, 525])
-    # if name5 != "5. None":
-    #     Subtitle_textL(text=name5, color=white, position=[95, 575])
-    #     Subtitle_textL(text=score5, color=white, position=[350, 575])
-
-
-# View the menu
-def View_menu():
-    global game_screen
-
-    # Clear the screen
-    pygame.Surface.fill(screen, background)
-
-    # Displaying the menu images
-    screen.blit(title, [160, 80])
-    screen.blit(reaction_button, [538, 262])
-    screen.blit(aim_button, [538, 410])
-    screen.blit(quit_button, [538, 558])
-
-    # React_score_disp()
-
-    # Highlighting the buttons if the mouse is overtop of it
-    if reaction_button.get_rect(topleft=[538, 262]).collidepoint(pygame.mouse.get_pos()):
-        screen.blit(reaction_button_s, [538, 262])
-
-        # Change to the reaction time game scene
-        if pygame.mouse.get_pressed(num_buttons=3)[0] == 1 & reaction_button.get_rect(topleft=[538, 262]).collidepoint(
-                pygame.mouse.get_pos()):  # clicks on reaction time
-            pygame.Surface.fill(screen, background)
-            game_screen = "react"
-
-    # Highlighting the buttons if the mouse is overtop of it
-    elif aim_button.get_rect(topleft=[538, 410]).collidepoint(pygame.mouse.get_pos()):
-        screen.blit(aim_button_s, [538, 410])
-
-        # Change to the aim training game scene
-        if pygame.mouse.get_pressed(num_buttons=3)[0] == 1 & aim_button.get_rect(topleft=[538, 410]).collidepoint(
-                pygame.mouse.get_pos()):  # clicks on aim trainer
-            pygame.Surface.fill(screen, background)
-            game_screen = "aim"
-
-    # Highlighting the buttons if the mouse is overtop of it
-    elif quit_button.get_rect(topleft=[538, 558]).collidepoint(pygame.mouse.get_pos()):
-        screen.blit(quit_button_s, [538, 558])
-
-        # Quitting the game
-        if pygame.mouse.get_pressed(num_buttons=3)[0] == 1 & quit_button.get_rect(topleft=[538, 558]).collidepoint(
-                pygame.mouse.get_pos()):  # clicks on quit
-            quit()
-
-
-def Difficulty():
-    global game_screen, difficulty
-
-    pygame.Surface.fill(screen, background)
-
-    # Rendering images
-    screen.blit(title, [160, 80])
-    Title_text(text="Choose A Difficulty", color=white, position=[640, 300])
-    screen.blit(easy, [93, 400])
-    screen.blit(medium, [389, 400])
-    screen.blit(hard, [686, 400])
-    screen.blit(quit_button, [983, 400])
-
-    if easy.get_rect(topleft=[93, 400]).collidepoint(pygame.mouse.get_pos()):
-        screen.blit(easy_s, [93, 400])
-        if pygame.mouse.get_pressed(num_buttons=3)[0] == 1 & easy.get_rect(topleft=[93, 400]).collidepoint(
-                pygame.mouse.get_pos()):
-            difficulty = "easy"
-            print(difficulty)
-
-    elif medium.get_rect(topleft=[389, 400]).collidepoint(pygame.mouse.get_pos()):
-        screen.blit(medium_s, [389, 400])
-        if pygame.mouse.get_pressed(num_buttons=3)[0] == 1 & medium.get_rect(topleft=[389, 400]).collidepoint(
-                pygame.mouse.get_pos()):
-            difficulty = "medium"
-            print(difficulty)
-    elif hard.get_rect(topleft=[686, 400]).collidepoint(pygame.mouse.get_pos()):
-        screen.blit(hard_s, [686, 400])
-        if pygame.mouse.get_pressed(num_buttons=3)[0] == 1 & hard.get_rect(topleft=[686, 400]).collidepoint(
-                pygame.mouse.get_pos()):
-            difficulty = "hard"
-            print(difficulty)
-
-    elif quit_button.get_rect(topleft=[983, 400]).collidepoint(pygame.mouse.get_pos()):
-        screen.blit(quit_button_s, [983, 400])
-
-        # Quitting the game
-        if pygame.mouse.get_pressed(num_buttons=3)[0] == 1 & quit_button.get_rect(topleft=[983, 400]).collidepoint(
-                pygame.mouse.get_pos()):
-            game_screen = "menu"
 
 
 # Main program loop
@@ -209,10 +91,83 @@ while not done:
 
         # Drawing code should go here
         if game_screen == "menu":
-            View_menu()
+            # Clear the screen
+            pygame.Surface.fill(screen, background)
+
+            # Displaying the menu images
+            screen.blit(title, [160, 80])
+            screen.blit(reaction_button, [538, 262])
+            screen.blit(aim_button, [538, 410])
+            screen.blit(quit_button, [538, 558])
+
+            # Highlighting the buttons if the mouse is overtop of it
+            if reaction_button.get_rect(topleft=[538, 262]).collidepoint(pygame.mouse.get_pos()):
+                screen.blit(reaction_button_s, [538, 262])
+
+                # Change to the reaction time game scene
+                if pygame.mouse.get_pressed(num_buttons=3)[0] == 1 & reaction_button.get_rect(
+                        topleft=[538, 262]).collidepoint(pygame.mouse.get_pos()):  # clicks on reaction time
+                    pygame.Surface.fill(screen, background)
+                    game_screen = "react"
+
+            # Highlighting the buttons if the mouse is overtop of it
+            elif aim_button.get_rect(topleft=[538, 410]).collidepoint(pygame.mouse.get_pos()):
+                screen.blit(aim_button_s, [538, 410])
+
+                # Change to the aim training game scene
+                if pygame.mouse.get_pressed(num_buttons=3)[0] == 1 & aim_button.get_rect(
+                        topleft=[538, 410]).collidepoint(pygame.mouse.get_pos()):  # clicks on aim trainer
+                    pygame.Surface.fill(screen, background)
+                    game_screen = "aim"
+
+                # Highlighting the buttons if the mouse is overtop of it
+                elif quit_button.get_rect(topleft=[538, 558]).collidepoint(pygame.mouse.get_pos()):
+                    screen.blit(quit_button_s, [538, 558])
+
+                    # Quitting the game
+                    if pygame.mouse.get_pressed(num_buttons=3)[0] == 1 & quit_button.get_rect(
+                            topleft=[538, 558]).collidepoint(pygame.mouse.get_pos()):  # clicks on quit
+                        quit()
 
         if game_screen == "aim":
-            Difficulty()
+            pygame.Surface.fill(screen, background)
+
+            # Rendering images
+            screen.blit(title, [160, 80])
+            Title_text(text="Choose A Difficulty", color=white, position=[640, 300])
+            screen.blit(easy, [93, 400])
+            screen.blit(medium, [389, 400])
+            screen.blit(hard, [686, 400])
+            screen.blit(quit_button, [983, 400])
+
+            if easy.get_rect(topleft=[93, 400]).collidepoint(pygame.mouse.get_pos()):
+                screen.blit(easy_s, [93, 400])
+                if pygame.mouse.get_pressed(num_buttons=3)[0] == 1 & easy.get_rect(topleft=[93, 400]).collidepoint(
+                        pygame.mouse.get_pos()):
+                    difficulty = "easy"
+                    print(difficulty)
+
+            elif medium.get_rect(topleft=[389, 400]).collidepoint(pygame.mouse.get_pos()):
+                screen.blit(medium_s, [389, 400])
+                if pygame.mouse.get_pressed(num_buttons=3)[0] == 1 & medium.get_rect(topleft=[389, 400]).collidepoint(
+                        pygame.mouse.get_pos()):
+                    difficulty = "medium"
+                    print(difficulty)
+
+            elif hard.get_rect(topleft=[686, 400]).collidepoint(pygame.mouse.get_pos()):
+                screen.blit(hard_s, [686, 400])
+                if pygame.mouse.get_pressed(num_buttons=3)[0] == 1 & hard.get_rect(topleft=[686, 400]).collidepoint(
+                        pygame.mouse.get_pos()):
+                    difficulty = "hard"
+                    print(difficulty)
+
+            elif quit_button.get_rect(topleft=[983, 400]).collidepoint(pygame.mouse.get_pos()):
+                screen.blit(quit_button_s, [983, 400])
+
+                # Quitting the game
+                if pygame.mouse.get_pressed(num_buttons=3)[0] == 1 & quit_button.get_rect(
+                        topleft=[983, 400]).collidepoint(pygame.mouse.get_pos()):
+                    game_screen = "menu"
 
     # Update the screen with what we've drawn
     pygame.display.flip()
