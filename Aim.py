@@ -77,20 +77,21 @@ while not done:
             if pygame.mouse.get_pressed(num_buttons=3)[0] == 1:
                 screen.fill(background)
                 start_time = current_time
-                game_state = "react"
+                game_state = "generate"
+
+        if game_state == "generate" and current_time - start_time <= 60:
+            horizontal_red = random.randint(0, 1020)
+            vertical_red = random.randint(0, 520)
+            screen.blit(red_target_image, [horizontal_red, vertical_red])
+            game_state = "react"
 
         if game_state == "react" and current_time - start_time <= 60:
-            if new_target == 1:
-                horizontal_red = random.randint(0, 1020)
-                vertical_red = random.randint(0, 520)
-                screen.blit(red_target_image, [horizontal_red, vertical_red])
-                new_target = 0
-            if new_target == 0 and pygame.mouse.get_pressed(num_buttons=3)[0] == 1 and red_target_image.get_rect(
+            if pygame.mouse.get_pressed(num_buttons=3)[0] == 1 & red_target_image.get_rect(
                     topleft=[horizontal_red, vertical_red]).collidepoint(pygame.mouse.get_pos()):
-                screen.fill(background)
-                score += 500
-                new_target = 1
-
+                Title_text()
+                # screen.fill(background)
+                # score += 500
+                # game_state = "generate"
 
     pygame.display.flip()
 
