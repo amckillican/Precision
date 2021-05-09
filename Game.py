@@ -6,6 +6,8 @@ import pygame.gfxdraw
 pygame.init()
 pygame.font.init()
 screen = pygame.display.set_mode((1280, 720))
+Title_Font = pygame.font.SysFont("Arial", 60)
+Subtitle_font = pygame.font.SysFont("Arial", 30)
 pygame.display.set_caption("Precision")
 clock = pygame.time.Clock()
 
@@ -38,6 +40,34 @@ quit_button_s = pygame.image.load("main_menu/quit_button_s.png").convert_alpha(s
 reaction_button = pygame.image.load("main_menu/reaction_button.png").convert_alpha(screen)
 reaction_button_s = pygame.image.load("main_menu/reaction_button_s.png").convert_alpha(screen)
 title = pygame.image.load("main_menu/title.png").convert_alpha(screen)
+
+
+# Render some text
+def Title_text(text="NULL", color=white, position=(640, 360)):
+    rendered_text = Title_Font.render(text, True, color)
+    rendered_text_rect = rendered_text.get_rect(center=position)
+    screen.blit(rendered_text, rendered_text_rect)
+
+
+# Render some text
+def Title_textL(text="NULL", color=white, position=(640, 360)):
+    rendered_text = (Title_Font.render(text, True, color))
+    rendered_text_rect = rendered_text.get_rect(topleft=position)
+    screen.blit(rendered_text, rendered_text_rect)
+
+
+# Render some text
+def Subtitle_text(text="NULL", color=white, position=(640, 360)):
+    rendered_text = (Subtitle_font.render(text, True, color))
+    rendered_text_rect = rendered_text.get_rect(center=position)
+    screen.blit(rendered_text, rendered_text_rect)
+
+
+# Render some text
+def Subtitle_textL(text="NULL", color=white, position=(640, 360)):
+    rendered_text = (Subtitle_font.render(text, True, color))
+    rendered_text_rect = rendered_text.get_rect(topleft=position)
+    screen.blit(rendered_text, rendered_text_rect)
 
 
 # View the menu

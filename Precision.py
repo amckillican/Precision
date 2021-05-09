@@ -51,8 +51,15 @@ hard_s = pygame.image.load("difficulty/hard_s.png").convert_alpha(screen)
 
 # Render some text
 def Title_text(text="NULL", color=white, position=(640, 360)):
-    rendered_text = (Title_Font.render(text, True, color))
+    rendered_text = Title_Font.render(text, True, color)
     rendered_text_rect = rendered_text.get_rect(center=position)
+    screen.blit(rendered_text, rendered_text_rect)
+
+
+# Render some text
+def Title_textL(text="NULL", color=white, position=(640, 360)):
+    rendered_text = (Title_Font.render(text, True, color))
+    rendered_text_rect = rendered_text.get_rect(topleft=position)
     screen.blit(rendered_text, rendered_text_rect)
 
 
