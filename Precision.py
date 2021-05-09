@@ -40,20 +40,20 @@ target_count = 4
 done = False
 
 # Initialize images
-aim_button = pygame.image.load("main_menu/aim_button.png").convert_alpha(screen)
-aim_button_s = pygame.image.load("main_menu/aim_button_s.png").convert_alpha(screen)
-quit_button = pygame.image.load("main_menu/quit_button.png").convert_alpha(screen)
-quit_button_s = pygame.image.load("main_menu/quit_button_s.png").convert_alpha(screen)
-reaction_button = pygame.image.load("main_menu/reaction_button.png").convert_alpha(screen)
-reaction_button_s = pygame.image.load("main_menu/reaction_button_s.png").convert_alpha(screen)
-title = pygame.image.load("main_menu/title.png").convert_alpha(screen)
-flick = pygame.image.load("difficulty/flick.png").convert_alpha(screen)
-flick_s = pygame.image.load("difficulty/flick_s.png").convert_alpha(screen)
-spider_shot = pygame.image.load("difficulty/spider_shot.png").convert_alpha(screen)
-spider_shot_s = pygame.image.load("difficulty/spider_shot_s.png").convert_alpha(screen)
-grid_shot = pygame.image.load("difficulty/grid_shot.png").convert_alpha(screen)
-grid_shot_s = pygame.image.load("difficulty/grid_shot_s.png").convert_alpha(screen)
-red_target_image = pygame.transform.scale((pygame.image.load("targets/RED.png").convert_alpha(screen)), [100, 100])
+aim_button = pygame.image.load("assets/main_menu/aim_button.png").convert_alpha(screen)
+aim_button_s = pygame.image.load("assets/main_menu/aim_button_s.png").convert_alpha(screen)
+quit_button = pygame.image.load("assets/main_menu/quit_button.png").convert_alpha(screen)
+quit_button_s = pygame.image.load("assets/main_menu/quit_button_s.png").convert_alpha(screen)
+reaction_button = pygame.image.load("assets/main_menu/reaction_button.png").convert_alpha(screen)
+reaction_button_s = pygame.image.load("assets/main_menu/reaction_button_s.png").convert_alpha(screen)
+title = pygame.image.load("assets/main_menu/title.png").convert_alpha(screen)
+flick = pygame.image.load("assets/difficulty/flick.png").convert_alpha(screen)
+flick_s = pygame.image.load("assets/difficulty/flick_s.png").convert_alpha(screen)
+spider_shot = pygame.image.load("assets/difficulty/spider_shot.png").convert_alpha(screen)
+spider_shot_s = pygame.image.load("assets/difficulty/spider_shot_s.png").convert_alpha(screen)
+grid_shot = pygame.image.load("assets/difficulty/grid_shot.png").convert_alpha(screen)
+grid_shot_s = pygame.image.load("assets/difficulty/grid_shot_s.png").convert_alpha(screen)
+red_target_image = pygame.transform.scale((pygame.image.load("assets/targets/RED.png").convert_alpha(screen)), [100, 100])
 
 
 # Render text function
