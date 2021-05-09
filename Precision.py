@@ -21,7 +21,7 @@ background = (39, 41, 44)
 
 # Variables
 pos_list_horizontal = [176, 452, 728, 1004]
-pos_list_vertical = [64, 228, 392, 556]
+pos_list_vertical = [83, 247, 411, 575]
 game_screen = "menu"
 game_type = "menu"
 game_mode = "start"
@@ -34,6 +34,8 @@ reaction_time = 0
 start_time = 0
 current_time = 0
 final_average = 0
+game_start = 1
+target_count = 4
 done = False
 
 # Initialize images
@@ -46,8 +48,8 @@ reaction_button_s = pygame.image.load("main_menu/reaction_button_s.png").convert
 title = pygame.image.load("main_menu/title.png").convert_alpha(screen)
 flick = pygame.image.load("difficulty/flick.png").convert_alpha(screen)
 flick_s = pygame.image.load("difficulty/flick_s.png").convert_alpha(screen)
-tracking = pygame.image.load("difficulty/tracking.png").convert_alpha(screen)
-tracking_s = pygame.image.load("difficulty/tracking_s.png").convert_alpha(screen)
+spider_shot = pygame.image.load("difficulty/spider_shot.png").convert_alpha(screen)
+spider_shot_s = pygame.image.load("difficulty/spider_shot_s.png").convert_alpha(screen)
 grid_shot = pygame.image.load("difficulty/grid_shot.png").convert_alpha(screen)
 grid_shot_s = pygame.image.load("difficulty/grid_shot_s.png").convert_alpha(screen)
 red_target_image = pygame.transform.scale((pygame.image.load("targets/RED.png").convert_alpha(screen)), [100, 100])
@@ -86,6 +88,42 @@ def Subtitle_textL(text="NULL", color=white, position=(640, 360)):
     rendered_text = (Subtitle_font.render(text, True, color))
     rendered_text_rect = rendered_text.get_rect(topleft=position)
     screen.blit(rendered_text, rendered_text_rect)
+
+
+# If the first target is overlapping another, regenerate it
+def Regenerate_1():
+    global horizontal_red_1, horizontal_red_2, horizontal_red_3, horizontal_red_4, vertical_red_1, vertical_red_2, vertical_red_3, vertical_red_4
+    while (horizontal_red_1 == horizontal_red_2 or horizontal_red_1 == horizontal_red_3 or horizontal_red_1 == horizontal_red_4) and (
+            vertical_red_1 == vertical_red_2 or vertical_red_1 == vertical_red_3 or vertical_red_1 == vertical_red_4):
+        horizontal_red_1 = random.choice(pos_list_horizontal)
+        vertical_red_1 = random.choice(pos_list_vertical)
+
+
+# If the second target is overlapping another, regenerate it
+def Regenerate_2():
+    global horizontal_red_1, horizontal_red_2, horizontal_red_3, horizontal_red_4, vertical_red_1, vertical_red_2, vertical_red_3, vertical_red_4
+    while (horizontal_red_2 == horizontal_red_1 or horizontal_red_2 == horizontal_red_3 or horizontal_red_2 == horizontal_red_4) and (
+            vertical_red_2 == vertical_red_1 or vertical_red_2 == vertical_red_3 or vertical_red_2 == vertical_red_4):
+        horizontal_red_2 = random.choice(pos_list_horizontal)
+        vertical_red_2 = random.choice(pos_list_vertical)
+
+
+# If the third target is overlapping another, regenerate it
+def Regenerate_3():
+    global horizontal_red_1, horizontal_red_2, horizontal_red_3, horizontal_red_4, vertical_red_1, vertical_red_2, vertical_red_3, vertical_red_4
+    while (horizontal_red_3 == horizontal_red_2 or horizontal_red_3 == horizontal_red_1 or horizontal_red_3 == horizontal_red_4) and (
+            vertical_red_3 == vertical_red_2 or vertical_red_3 == vertical_red_1 or vertical_red_3 == vertical_red_4):
+        horizontal_red_3 = random.choice(pos_list_horizontal)
+        vertical_red_3 = random.choice(pos_list_vertical)
+
+
+# If the fourth target is overlapping another, regenerate it
+def Regenerate_4():
+    global horizontal_red_1, horizontal_red_2, horizontal_red_3, horizontal_red_4, vertical_red_1, vertical_red_2, vertical_red_3, vertical_red_4
+    while (horizontal_red_4 == horizontal_red_2 or horizontal_red_4 == horizontal_red_3 or horizontal_red_4 == horizontal_red_1) and (
+            vertical_red_4 == vertical_red_2 or vertical_red_4 == vertical_red_3 or vertical_red_4 == vertical_red_1):
+        horizontal_red_4 = random.choice(pos_list_horizontal)
+        vertical_red_4 = random.choice(pos_list_vertical)
 
 
 # Main program loop
@@ -155,7 +193,7 @@ while not done:
                 screen.blit(title, [160, 80])
                 Title_text(text="Choose A Game", color=white, position=[640, 300])
                 screen.blit(flick, [93, 400])
-                screen.blit(tracking, [389, 400])
+                screen.blit(spider_shot, [389, 400])
                 screen.blit(grid_shot, [686, 400])
                 screen.blit(quit_button, [983, 400])
 
@@ -170,11 +208,11 @@ while not done:
                         screen.fill(background)
 
                 # Highlighting the tracking button if the mouse is overtop of it
-                elif tracking.get_rect(topleft=[389, 400]).collidepoint(pygame.mouse.get_pos()):
-                    screen.blit(tracking_s, [389, 400])
+                elif spider_shot.get_rect(topleft=[389, 400]).collidepoint(pygame.mouse.get_pos()):
+                    screen.blit(spider_shot_s, [389, 400])
 
                     # Change to the tracking game mode
-                    if event.type == pygame.MOUSEBUTTONDOWN and tracking.get_rect(topleft=[389, 400]).collidepoint(
+                    if event.type == pygame.MOUSEBUTTONDOWN and spider_shot.get_rect(topleft=[389, 400]).collidepoint(
                             pygame.mouse.get_pos()):
                         game_type = "spider_shot"
                         screen.fill(background)
@@ -471,6 +509,74 @@ while not done:
                     start_time = current_time
                     game_mode = "react"
 
+                    if game_start == 1:
+                        # Generate a target at a random position
+                        horizontal_red_1 = random.choice(pos_list_horizontal)
+                        vertical_red_1 = random.choice(pos_list_vertical)
+
+                        horizontal_red_2 = random.choice(pos_list_horizontal)
+                        vertical_red_2 = random.choice(pos_list_vertical)
+
+                        horizontal_red_3 = random.choice(pos_list_horizontal)
+                        vertical_red_3 = random.choice(pos_list_vertical)
+
+                        horizontal_red_4 = random.choice(pos_list_horizontal)
+                        vertical_red_4 = random.choice(pos_list_vertical)
+
+                        Regenerate_1()
+                        Regenerate_2()
+                        Regenerate_3()
+                        Regenerate_4()
+
+                        screen.blit(red_target_image, [horizontal_red_1, vertical_red_1])
+                        screen.blit(red_target_image, [horizontal_red_2, vertical_red_2])
+                        screen.blit(red_target_image, [horizontal_red_3, vertical_red_3])
+                        screen.blit(red_target_image, [horizontal_red_4, vertical_red_4])
+
+            if game_mode == "generate_1":
+                # While the game has been running for less than 60 seconds
+                if game_time < 60:
+                    # Generate a target at a random position
+                    horizontal_red_1 = random.choice(pos_list_horizontal)
+                    vertical_red_1 = random.choice(pos_list_vertical)
+                    Regenerate_1()
+                    screen.blit(red_target_image, [horizontal_red_1, vertical_red_1])
+                    target_count += 1
+                    game_mode = "react"
+
+            elif game_mode == "generate_2":
+                # While the game has been running for less than 60 seconds
+                if game_time < 60:
+                    # Generate a target at a random position
+                    horizontal_red_2 = random.choice(pos_list_horizontal)
+                    vertical_red_2 = random.choice(pos_list_vertical)
+                    Regenerate_2()
+                    screen.blit(red_target_image, [horizontal_red_2, vertical_red_2])
+                    target_count += 1
+                    game_mode = "react"
+
+            elif game_mode == "generate_3":
+                # While the game has been running for less than 60 seconds
+                if game_time < 60:
+                    # Generate a target at a random position
+                    horizontal_red_3 = random.choice(pos_list_horizontal)
+                    vertical_red_3 = random.choice(pos_list_vertical)
+                    Regenerate_3()
+                    screen.blit(red_target_image, [horizontal_red_3, vertical_red_3])
+                    target_count += 1
+                    game_mode = "react"
+
+            elif game_mode == "generate_4":
+                # While the game has been running for less than 60 seconds
+                if game_time < 60:
+                    # Generate a target at a random position
+                    horizontal_red_4 = random.choice(pos_list_horizontal)
+                    vertical_red_4 = random.choice(pos_list_vertical)
+                    Regenerate_4()
+                    screen.blit(red_target_image, [horizontal_red_4, vertical_red_4])
+                    target_count += 1
+                    game_mode = "react"
+
             # Wait for the user to click the target and increase the counter when they do
             if game_mode == "react":
                 if event.type == pygame.MOUSEBUTTONDOWN and red_target_image.get_rect(
@@ -478,70 +584,60 @@ while not done:
                     pygame.draw.rect(screen, background, (horizontal_red_1, vertical_red_1, 100, 100))
                     num_targets += 1
                     target_count -= 1
-                    game_mode = "generate"
+                    game_mode = "generate_1"
 
-            # Wait for the user to click the target and increase the counter when they do
-            elif game_mode == "react":
-                if event.type == pygame.MOUSEBUTTONDOWN and red_target_image.get_rect(
+                # Wait for the user to click the target and increase the counter when they do
+                elif event.type == pygame.MOUSEBUTTONDOWN and red_target_image.get_rect(
                         topleft=[horizontal_red_2, vertical_red_2]).collidepoint(pygame.mouse.get_pos()):
                     pygame.draw.rect(screen, background, (horizontal_red_2, vertical_red_2, 100, 100))
                     num_targets += 1
                     target_count -= 1
-                    game_mode = "generate"
+                    game_mode = "generate_2"
 
-            # Wait for the user to click the target and increase the counter when they do
-            elif game_mode == "react":
-                if event.type == pygame.MOUSEBUTTONDOWN and red_target_image.get_rect(
+                # Wait for the user to click the target and increase the counter when they do
+                elif event.type == pygame.MOUSEBUTTONDOWN and red_target_image.get_rect(
                         topleft=[horizontal_red_3, vertical_red_3]).collidepoint(pygame.mouse.get_pos()):
                     pygame.draw.rect(screen, background, (horizontal_red_3, vertical_red_3, 100, 100))
                     num_targets += 1
                     target_count -= 1
-                    game_mode = "generate"
+                    game_mode = "generate_3"
 
-            # Wait for the user to click the target and increase the counter when they do
-            elif game_mode == "react":
-                if event.type == pygame.MOUSEBUTTONDOWN and red_target_image.get_rect(
+                # Wait for the user to click the target and increase the counter when they do
+                elif event.type == pygame.MOUSEBUTTONDOWN and red_target_image.get_rect(
                         topleft=[horizontal_red_4, vertical_red_4]).collidepoint(pygame.mouse.get_pos()):
                     pygame.draw.rect(screen, background, (horizontal_red_4, vertical_red_4, 100, 100))
                     num_targets += 1
                     target_count -= 1
-                    game_mode = "generate"
+                    game_mode = "generate_4"
 
-        if target_count == 0:
-            # While the game has been running for less than 60 seconds
-            if game_time < 60:
-                # Generate a target at a random position
-                horizontal_red_1 = random.choice(pos_list_horizontal)
-                vertical_red_1 = random.choice(pos_list_vertical)
-                screen.blit(red_target_image, [horizontal_red_1, vertical_red_1])
-                target_count += 1
+        # If the game has not started
+        if game_mode == "start":
+            # Display the starting text
+            Title_text("Click To Start")
 
-        elif target_count == 1:
-            # While the game has been running for less than 60 seconds
-            if game_time < 60:
-                # Generate a target at a random position
-                horizontal_red_2 = random.choice(pos_list_horizontal)
-                vertical_red_2 = random.choice(pos_list_vertical)
-                screen.blit(red_target_image, [horizontal_red_2, vertical_red_2])
-                target_count += 1
+        # If the game has not started yet and has not finished
+        if game_mode != "results" and game_mode != "start":
+            # Show the targets hit and timer
+            pygame.draw.rect(screen, background, (1200, 0, 80, 70))
+            pygame.draw.rect(screen, background, (0, 0, 300, 75))
+            Title_textL("Targets: " + str(num_targets), white, (10, 0))
+            Title_textR(str(int(time_left)), white, (1270, 0))
 
-        elif target_count == 2:
-            # While the game has been running for less than 60 seconds
-            if game_time < 60:
-                # Generate a target at a random position
-                horizontal_red_3 = random.choice(pos_list_horizontal)
-                vertical_red_3 = random.choice(pos_list_vertical)
-                screen.blit(red_target_image, [horizontal_red_3, vertical_red_3])
-                target_count += 1
+        # While the game has been running for more than 60 seconds
+        if game_time > 60:
+            # Display the results
+            game_mode = "results"
+            screen.fill(background)
 
-        elif target_count == 3:
-            # While the game has been running for less than 60 seconds
-            if game_time < 60:
-                # Generate a target at a random position
-                horizontal_red_4 = random.choice(pos_list_horizontal)
-                vertical_red_4 = random.choice(pos_list_vertical)
-                screen.blit(red_target_image, [horizontal_red_4, vertical_red_4])
-                target_count += 1
+        # If the time has run out
+        if game_mode == "results":
+            # Display the results
+            screen.fill(background)
+            final_average = 60000 / num_targets
+            Title_text(f"Targets Hit: {num_targets}", white, (640, 100))
+            Title_text(f"Average Response", white, (640, 250))
+            Title_text(f"Time: {final_average:.0f} MS", white, (640, 320))
+            Title_text("Press Enter To Exit To Menu", white, (640, 500))
 
     # Update the screen with what we've drawn
     pygame.display.flip()
