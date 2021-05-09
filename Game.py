@@ -23,7 +23,6 @@ background = (39, 41, 44)
 game_screen = "menu"
 difficulty = ""
 name = ""
-center = (640, 360)
 delay = 0
 start_time = 0
 average_time = 0

@@ -25,7 +25,6 @@ start_time = 0
 average_time = 0
 final_average = 0
 reaction_time = 0
-split_name = []
 done = False
 
 # Initialing colors
@@ -124,7 +123,7 @@ while not done:
         if game_time < 60:
             if game_state == "generate":
                 horizontal_red = random.randint(0, 1020)
-                vertical_red = random.randint(0, 520)
+                vertical_red = random.randint(75, 520)
                 screen.blit(red_target_image, [horizontal_red, vertical_red])
                 game_state = "react"
 
@@ -174,9 +173,11 @@ while not done:
                 if event.key == pygame.K_RETURN: Write_data()
 
     # Display the time left
-    if game_state != "results" or game_state != "start":
+    if game_state != "results" and game_state != "start":
+        pygame.draw.rect(screen, background, (1200, 0, 80, 70))
+        pygame.draw.rect(screen, background, (0, 0, 230, 75))
         Title_textL("Targets: " + str(num_targets), white, (10, 0))
-        Title_textR(str(time_left)[:2], white, (1270, 0))
+        Title_textR(str(int(time_left)), white, (1270, 0))
 
     # Saving the users name and reaction time
     if game_state == "results":
@@ -184,9 +185,9 @@ while not done:
         final_average = 60000 / num_targets
         Title_text(f"Targets Hit: {num_targets}", white, (640, 100))
         Title_text(f"Average Response", white, (640, 250))
-        Title_text(f"Time: {final_average:.0f} MS", white, (640, 350))
-        Title_text("Please Type Your", white, (640, 550))
-        Title_text(f"Name: {name}", white, (640, 650))
+        Title_text(f"Time: {final_average:.0f} MS", white, (640, 320))
+        Title_text("Please Type Your", white, (640, 500))
+        Title_text(f"Name: {name}", white, (640, 570))
 
     pygame.display.flip()
 

@@ -21,7 +21,6 @@ count = 0
 start_time = 0
 average_time = 0
 reaction_time = 0
-split_name = []
 done = False
 
 # Initialing colors
