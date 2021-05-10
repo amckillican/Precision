@@ -7,7 +7,6 @@ pygame.init()
 pygame.font.init()
 screen = pygame.display.set_mode((1280, 720))
 Title_Font = pygame.font.SysFont("Arial", 60)
-Subtitle_font = pygame.font.SysFont("Arial", 30)
 pygame.display.set_caption("Precision - Main Menu")
 clock = pygame.time.Clock()
 
@@ -74,20 +73,6 @@ def Title_textL(text="NULL", color=white, position=(640, 360)):
 def Title_textR(text="NULL", color=white, position=(640, 360)):
     rendered_text = (Title_Font.render(text, True, color))
     rendered_text_rect = rendered_text.get_rect(topright=position)
-    screen.blit(rendered_text, rendered_text_rect)
-
-
-# Render text function
-def Subtitle_text(text="NULL", color=white, position=(640, 360)):
-    rendered_text = (Subtitle_font.render(text, True, color))
-    rendered_text_rect = rendered_text.get_rect(center=position)
-    screen.blit(rendered_text, rendered_text_rect)
-
-
-# Render text function
-def Subtitle_textL(text="NULL", color=white, position=(640, 360)):
-    rendered_text = (Subtitle_font.render(text, True, color))
-    rendered_text_rect = rendered_text.get_rect(topleft=position)
     screen.blit(rendered_text, rendered_text_rect)
 
 
