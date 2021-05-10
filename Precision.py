@@ -20,7 +20,7 @@ blue = (0, 0, 255)
 background = (39, 41, 44)
 
 # Variables
-pos_list_horizontal = [176, 452, 728, 1004]
+pos_list_horizontal = [368, 516, 664, 812]
 pos_list_vertical = [83, 247, 411, 575]
 game_screen = "menu"
 game_type = "menu"
