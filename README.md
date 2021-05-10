@@ -41,11 +41,14 @@ We will use pygame to set up the game, and we will have a random number generato
     - Grid Shot
 
 ## Installation
+NOTE: Requires at least python 3.9.5 to be installed
 
-To download the repository through command prompt (terminal on macOS/linux), after cd'ing into the directory, run the command:
+To download and run the game, open command prompt (terminal on macOS/Linux) in the directory you want your game to be installed to and run the following commands:
 
-```git clone https://github.com/amckillican/Precision.git``` 
+```git clone https://github.com/amckillican/Precision.git```
 
-Once you have the repository downloaded, cd into the new folder and run the command: 
+```cd Precision```
+
+Run this to open the game while in that directory
 
 ```python Precision.py```
