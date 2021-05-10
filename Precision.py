@@ -271,8 +271,14 @@ while not done:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RETURN:
                         # Return to the main menu
-                        game_type = "menu"
                         game_screen = "menu"
+                        game_type = "menu"
+                        game_mode = "start"
+                        average_time = 0
+                        count = 0
+                        reaction_time = 0
+                        start_time = 0
+                        current_time = 0
 
         # Showing the previous reaction time
         if game_mode == "wait":
