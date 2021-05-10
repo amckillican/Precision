@@ -8,7 +8,7 @@ pygame.font.init()
 screen = pygame.display.set_mode((1280, 720))
 Title_Font = pygame.font.SysFont("Arial", 60)
 Subtitle_font = pygame.font.SysFont("Arial", 30)
-pygame.display.set_caption("Precision")
+pygame.display.set_caption("Precision - Main Menu")
 clock = pygame.time.Clock()
 
 # Initialing colors
@@ -20,7 +20,7 @@ blue = (0, 0, 255)
 background = (39, 41, 44)
 
 # Variables
-pos_list_horizontal = [176, 452, 728, 1004]
+pos_list_horizontal = [368, 516, 664, 812]
 pos_list_vertical = [83, 247, 411, 575]
 game_screen = "menu"
 game_type = "menu"
@@ -134,6 +134,7 @@ while not done:
 
     # If the screen is on the start menu
     if game_type == "menu":
+        pygame.display.set_caption("Precision - Main Menu")
         # Check the user events
         for event in pygame.event.get():
             # If the close button is pressed
@@ -238,6 +239,7 @@ while not done:
 
     # If the reaction game mode is chosen
     if game_type == "react":
+        pygame.display.set_caption("Precision - Reaction Time Test")
         screen.fill(background)
         # Tracking events
         for event in pygame.event.get():
@@ -269,8 +271,14 @@ while not done:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RETURN:
                         # Return to the main menu
-                        game_type = "menu"
                         game_screen = "menu"
+                        game_type = "menu"
+                        game_mode = "start"
+                        average_time = 0
+                        count = 0
+                        reaction_time = 0
+                        start_time = 0
+                        current_time = 0
 
         # Showing the previous reaction time
         if game_mode == "wait":
@@ -307,6 +315,7 @@ while not done:
 
     # If the flicking game mode is chosen
     if game_type == "flick":
+        pygame.display.set_caption("Precision - Flick Training")
         # Clear the screen if it is the first time the code is ran
         if beginning == 0:
             screen.fill(background)
@@ -400,6 +409,7 @@ while not done:
 
     # If the spider shot game mode is chosen
     if game_type == "spider_shot":
+        pygame.display.set_caption("Precision - Spider Shot")
         # Clear the screen if it is the first time the code is ran
         if beginning == 0:
             screen.fill(background)
@@ -498,6 +508,7 @@ while not done:
 
     # If the grid shot game mode is chosen
     if game_type == "grid_shot":
+        pygame.display.set_caption("Precision - Grid Shot")
         # Clear the screen if it is the first time the code is ran
         if beginning == 0:
             screen.fill(background)
