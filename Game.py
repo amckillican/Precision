@@ -263,6 +263,100 @@ while not done:
             Title_text(f"Time: {final_average:.0f} MS", white, (640, 320))
             Title_text("Press Enter To Exit To Menu", white, (640, 450))
 
+    # If the flicking game mode is chosen
+    if game_type == "flick":
+        pygame.display.set_caption("Precision - Flick Training")
+        # Clear the screen if it is the first time the code is ran
+        if beginning == 0:
+            screen.fill(background)
+            beginning = 1
+
+        # Setting the game timer
+        if game_mode != "results" and game_mode != "start":
+            game_time = (current_time - start_time) / 1000
+
+            # Calculating how much time is left
+            time_left = (60 - game_time) // 1
+
+        # Tracking user events
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quit()
+
+            # If the game is waiting to start
+            if game_mode == "start":
+                # If the user clicks the mouse
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    # Start a timer and the game
+                    screen.fill(background)
+                    start_time = current_time
+                    game_mode = "generate"
+
+            # While the game has been running for less than 60 seconds
+            if game_mode != "results" and game_mode != "start":
+                if game_time < 60:
+                    # Generate a target at a random position
+                    if game_mode == "generate":
+                        horizontal_red = random.randint(0, 1020)
+                        vertical_red = random.randint(75, 520)
+                        screen.blit(red_target_image, [horizontal_red, vertical_red])
+                        game_mode = "react"
+
+                    # Wait for the user to click the target and increase the counter when they do
+                    if game_mode == "react":
+                        if event.type == pygame.MOUSEBUTTONDOWN and red_target_image.get_rect(
+                                topleft=[horizontal_red, vertical_red]).collidepoint(pygame.mouse.get_pos()):
+                            screen.fill(background)
+                            num_targets += 1
+                            game_mode = "generate"
+
+            # If the results are being displayed
+            if game_mode == "results":
+                # If the user presses the enter key
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_RETURN:
+                        # Return to the main menu
+                        game_type = "menu"
+                        game_screen = "menu"
+                        game_mode = "start"
+                        num_targets = 0
+                        beginning = 0
+                        start_time = 0
+                        game_time = 0
+                        time_left = 0
+
+        # While the game has been running for more than 60 seconds
+        if game_mode != "results" and game_mode != "start":
+            if game_time > 60:
+                # Display the results
+                game_mode = "results"
+                screen.fill(background)
+
+        # If the game has not started
+        if game_mode == "start":
+            # Display the starting text
+            Title_text("Click To Start")
+
+        # If the game has not started yet and has not finished
+        if game_mode != "results" and game_mode != "start":
+            # Show the targets hit and timer
+            pygame.draw.rect(screen, background, (1200, 0, 80, 70))
+            pygame.draw.rect(screen, background, (0, 0, 230, 75))
+            Title_textL("Targets: " + str(num_targets), white, (10, 0))
+            Title_textR(str(int(time_left)), white, (1270, 0))
+
+        # If the time has run out
+        if game_mode == "results":
+            # Display the results
+            screen.fill(background)
+            if num_targets == 0:
+                num_targets += 1
+            final_average = 60000 / num_targets
+            Title_text(f"Targets Hit: {num_targets}", white, (640, 100))
+            Title_text(f"Average Response", white, (640, 250))
+            Title_text(f"Time: {final_average:.0f} MS", white, (640, 320))
+            Title_text("Press Enter To Exit To Menu", white, (640, 500))
+
     # Update the screen with what we've drawn
     pygame.display.flip()
 
