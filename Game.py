@@ -1,15 +1,19 @@
 # Importing modules
-import pygame.gfxdraw
 import random
+import pygame.gfxdraw
+from openpyxl import load_workbook
 
 # Initializing everything
 pygame.init()
 pygame.font.init()
 screen = pygame.display.set_mode((1280, 720))
 Title_Font = pygame.font.SysFont("Arial", 60)
-Subtitle_font = pygame.font.SysFont("Arial", 30)
+Subtitle_Font = pygame.font.SysFont("Arial", 40)
 pygame.display.set_caption("Precision - Main Menu")
 clock = pygame.time.Clock()
+wb = load_workbook(filename="Precision.xlsx")
+ws = wb.active
+wb.create_sheet("Precision")
 
 # Initialing colors
 black = (0, 0, 0)
@@ -77,6 +81,13 @@ def Title_textR(text="NULL", color=white, position=(640, 360)):
     screen.blit(rendered_text, rendered_text_rect)
 
 
+# Render text function
+def Subtitle_text(text="NULL", color=white, position=(640, 360)):
+    rendered_text = (Subtitle_Font.render(text, True, color))
+    rendered_text_rect = rendered_text.get_rect(topleft=position)
+    screen.blit(rendered_text, rendered_text_rect)
+
+
 # Main program loop
 while not done:
     # Keep track of the time
@@ -92,6 +103,14 @@ while not done:
                 # Quit the application
                 quit()
 
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    ws['A1'] = None
+                    ws['B1'] = None
+                    ws['C1'] = None
+                    ws['D1'] = None
+                    wb.save("Precision.xlsx")
+
             # Clearing the screen
             screen.fill(background)
 
@@ -105,6 +124,28 @@ while not done:
                 screen.blit(reaction_button, [538, 262])
                 screen.blit(aim_button, [538, 410])
                 screen.blit(quit_button, [538, 558])
+
+                # Displaying the high scores
+                Subtitle_text("High Scores", white, (190, 275))
+                if ws['A1'].value is not None:
+                    Subtitle_text(f"Reaction Time: {ws['A1'].value} MS", white, (120, 350))
+                elif ws['A1'].value is None:
+                    Subtitle_text(f"Reaction Time: {ws['A1'].value}", white, (120, 350))
+
+                if ws['B1'].value is not None:
+                    Subtitle_text(f"Flick Shot Time: {ws['B1'].value} MS", white, (120, 425))
+                elif ws['B1'].value is None:
+                    Subtitle_text(f"Flick Shot Time: {ws['B1'].value}", white, (120, 425))
+
+                if ws['C1'].value is not None:
+                    Subtitle_text(f"Spider Shot Time: {ws['C1'].value} MS", white, (120, 500))
+                elif ws['C1'].value is None:
+                    Subtitle_text(f"Spider Shot Time: {ws['C1'].value}", white, (120, 500))
+
+                if ws['C1'].value is not None:
+                    Subtitle_text(f"Grid Shot Time: {ws['D1'].value} MS", white, (120, 575))
+                elif ws['C1'].value is None:
+                    Subtitle_text(f"Grid Shot Time: {ws['D1'].value}", white, (120, 575))
 
                 # Highlighting the reaction time button if the mouse is overtop of it
                 if reaction_button.get_rect(topleft=[538, 262]).collidepoint(pygame.mouse.get_pos()):
@@ -221,6 +262,11 @@ while not done:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RETURN:
                         # Return to the main menu
+                        if ws['A1'].value is None:
+                            ws['A1'] = int(f"{final_average:.0f}")
+                        if ws['A1'] is not None and final_average <= ws['A1'].value:
+                            ws['A1'] = int(f"{final_average:.0f}")
+                        wb.save("Precision.xlsx")
                         game_screen = "menu"
                         game_type = "menu"
                         game_mode = "start"
@@ -316,6 +362,11 @@ while not done:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RETURN:
                         # Return to the main menu
+                        if ws['B1'].value is None:
+                            ws['B1'] = int(f"{final_average:.0f}")
+                        if ws['B1'] is not None and final_average <= ws['B1'].value:
+                            ws['B1'] = int(f"{final_average:.0f}")
+                        wb.save("Precision.xlsx")
                         game_type = "menu"
                         game_screen = "menu"
                         game_mode = "start"
@@ -351,6 +402,110 @@ while not done:
             screen.fill(background)
             if num_targets == 0:
                 num_targets += 1
+            final_average = 60000 / num_targets
+            Title_text(f"Targets Hit: {num_targets}", white, (640, 100))
+            Title_text(f"Average Response", white, (640, 250))
+            Title_text(f"Time: {final_average:.0f} MS", white, (640, 320))
+            Title_text("Press Enter To Exit To Menu", white, (640, 500))
+
+    # If the spider shot game mode is chosen
+    if game_type == "spider_shot":
+        pygame.display.set_caption("Precision - Spider Shot")
+        # Clear the screen if it is the first time the code is ran
+        if beginning == 0:
+            screen.fill(background)
+            beginning = 1
+
+        if game_mode != "results" and game_mode != "start":
+            # Setting the game timer
+            game_time = (current_time - start_time) / 1000
+
+            # Calculating how much time is left
+            time_left = (60 - game_time) // 1
+
+        # Tracking user events
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quit()
+
+            # If the game is waiting to start
+            if game_mode == "start":
+                # If the user clicks the mouse
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    # Start a timer and the game
+                    screen.fill(background)
+                    start_time = current_time
+                    game_mode = "generate"
+
+            # While the game has been running for less than 60 seconds
+            if game_mode != "results" and game_mode != "start":
+                if game_time < 60:
+                    # Generate a target at a random position
+                    if game_mode == "generate":
+                        if (num_targets + 2) % 2 == 0:
+                            horizontal_red = 590
+                            vertical_red = 310
+                            screen.blit(red_target_image, [horizontal_red, vertical_red])
+                            game_mode = "react"
+
+                        elif (num_targets + 2) % 2 != 0:
+                            horizontal_red = random.randint(0, 1020)
+                            vertical_red = random.randint(75, 520)
+                            screen.blit(red_target_image, [horizontal_red, vertical_red])
+                            game_mode = "react"
+
+                    # Wait for the user to click the target and increase the counter when they do
+                    if game_mode == "react":
+                        if event.type == pygame.MOUSEBUTTONDOWN and red_target_image.get_rect(
+                                topleft=[horizontal_red, vertical_red]).collidepoint(pygame.mouse.get_pos()):
+                            screen.fill(background)
+                            num_targets += 1
+                            game_mode = "generate"
+
+            # If the results are being displayed
+            if game_mode == "results":
+                # If the user presses the enter key
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_RETURN:
+                        # Return to the main menu
+                        if ws['C1'].value is None:
+                            ws['C1'] = int(f"{final_average:.0f}")
+                        if ws['C1'] is not None and final_average <= ws['C1'].value:
+                            ws['C1'] = int(f"{final_average:.0f}")
+                        wb.save("Precision.xlsx")
+                        game_type = "menu"
+                        game_screen = "menu"
+                        game_mode = "start"
+                        num_targets = 0
+                        beginning = 0
+                        start_time = 0
+                        game_time = 0
+                        time_left = 0
+
+        # If the game has not started
+        if game_mode == "start":
+            # Display the starting text
+            Title_text("Click To Start")
+
+        # If the game has not started yet and has not finished
+        if game_mode != "results" and game_mode != "start":
+            # Show the targets hit and timer
+            pygame.draw.rect(screen, background, (1200, 0, 80, 70))
+            pygame.draw.rect(screen, background, (0, 0, 230, 75))
+            Title_textL("Targets: " + str(num_targets), white, (10, 0))
+            Title_textR(str(int(time_left)), white, (1270, 0))
+
+        # While the game has been running for more than 60 seconds
+        if game_mode != "results" and game_mode != "start":
+            if game_time > 60:
+                # Display the results
+                game_mode = "results"
+                screen.fill(background)
+
+        # If the time has run out
+        if game_mode == "results":
+            # Display the results
+            screen.fill(background)
             final_average = 60000 / num_targets
             Title_text(f"Targets Hit: {num_targets}", white, (640, 100))
             Title_text(f"Average Response", white, (640, 250))

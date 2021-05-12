@@ -1,14 +1,19 @@
 # Importing modules
-import pygame.gfxdraw
 import random
+import pygame.gfxdraw
+from openpyxl import load_workbook
 
 # Initializing everything
 pygame.init()
 pygame.font.init()
 screen = pygame.display.set_mode((1280, 720))
 Title_Font = pygame.font.SysFont("Arial", 60)
+Subtitle_Font = pygame.font.SysFont("Arial", 40)
 pygame.display.set_caption("Precision - Main Menu")
 clock = pygame.time.Clock()
+wb = load_workbook(filename="Precision.xlsx")
+ws = wb.active
+wb.create_sheet("Precision")
 
 # Initialing colors
 black = (0, 0, 0)
@@ -76,6 +81,13 @@ def Title_textR(text="NULL", color=white, position=(640, 360)):
     screen.blit(rendered_text, rendered_text_rect)
 
 
+# Render text function
+def Subtitle_text(text="NULL", color=white, position=(640, 360)):
+    rendered_text = (Subtitle_Font.render(text, True, color))
+    rendered_text_rect = rendered_text.get_rect(topleft=position)
+    screen.blit(rendered_text, rendered_text_rect)
+
+
 # If the first target is overlapping another, regenerate it
 def Regenerate_1():
     global horizontal_red_1, horizontal_red_2, horizontal_red_3, horizontal_red_4, vertical_red_1, vertical_red_2, vertical_red_3, vertical_red_4
@@ -127,6 +139,14 @@ while not done:
                 # Quit the application
                 quit()
 
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    ws['A1'] = None
+                    ws['B1'] = None
+                    ws['C1'] = None
+                    ws['D1'] = None
+                    wb.save("Precision.xlsx")
+
             # Clearing the screen
             screen.fill(background)
 
@@ -140,6 +160,29 @@ while not done:
                 screen.blit(reaction_button, [538, 262])
                 screen.blit(aim_button, [538, 410])
                 screen.blit(quit_button, [538, 558])
+
+                # Displaying the high scores
+                Subtitle_text("High Scores", white, (190, 275))
+                if ws['A1'].value is not None:
+                    Subtitle_text(f"Reaction Time: {ws['A1'].value} MS", white, (120, 350))
+                elif ws['A1'].value is None:
+                    Subtitle_text(f"Reaction Time: {ws['A1'].value}", white, (120, 350))
+
+                if ws['B1'].value is not None:
+                    Subtitle_text(f"Flick Shot Time: {ws['B1'].value} MS", white, (120, 425))
+                elif ws['B1'].value is None:
+                    Subtitle_text(f"Flick Shot Time: {ws['B1'].value}", white, (120, 425))
+
+                if ws['C1'].value is not None:
+                    Subtitle_text(f"Spider Shot Time: {ws['C1'].value} MS", white, (120, 500))
+                elif ws['C1'].value is None:
+                    Subtitle_text(f"Spider Shot Time: {ws['C1'].value}", white, (120, 500))
+
+                if ws['C1'].value is not None:
+                    Subtitle_text(f"Grid Shot Time: {ws['D1'].value} MS", white, (120, 575))
+                elif ws['C1'].value is None:
+                    Subtitle_text(f"Grid Shot Time: {ws['D1'].value}", white, (120, 575))
+
 
                 # Highlighting the reaction time button if the mouse is overtop of it
                 if reaction_button.get_rect(topleft=[538, 262]).collidepoint(pygame.mouse.get_pos()):
@@ -256,6 +299,11 @@ while not done:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RETURN:
                         # Return to the main menu
+                        if ws['A1'].value is None:
+                            ws['A1'] = int(f"{final_average:.0f}")
+                        if ws['A1'] is not None and final_average <= ws['A1'].value:
+                            ws['A1'] = int(f"{final_average:.0f}")
+                        wb.save("Precision.xlsx")
                         game_screen = "menu"
                         game_type = "menu"
                         game_mode = "start"
@@ -351,6 +399,11 @@ while not done:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RETURN:
                         # Return to the main menu
+                        if ws['B1'].value is None:
+                            ws['B1'] = int(f"{final_average:.0f}")
+                        if ws['B1'] is not None and final_average <= ws['B1'].value:
+                            ws['B1'] = int(f"{final_average:.0f}")
+                        wb.save("Precision.xlsx")
                         game_type = "menu"
                         game_screen = "menu"
                         game_mode = "start"
@@ -452,6 +505,11 @@ while not done:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RETURN:
                         # Return to the main menu
+                        if ws['C1'].value is None:
+                            ws['C1'] = int(f"{final_average:.0f}")
+                        if ws['C1'] is not None and final_average <= ws['C1'].value:
+                            ws['C1'] = int(f"{final_average:.0f}")
+                        wb.save("Precision.xlsx")
                         game_type = "menu"
                         game_screen = "menu"
                         game_mode = "start"
@@ -585,6 +643,11 @@ while not done:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RETURN:
                         # Return to the main menu
+                        if ws['D1'].value is None:
+                            ws['D1'] = int(f"{final_average:.0f}")
+                        if ws['D1'] is not None and final_average <= ws['D1'].value:
+                            ws['D1'] = int(f"{final_average:.0f}")
+                        wb.save("Precision.xlsx")
                         game_type = "menu"
                         game_screen = "menu"
                         game_mode = "start"
