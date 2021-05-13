@@ -282,6 +282,16 @@ while not done:
 
             # If key is pressed
             if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    game_screen = "menu"
+                    game_type = "menu"
+                    game_mode = "start"
+                    average_time = 0
+                    count = 0
+                    reaction_time = 0
+                    start_time = 0
+                    current_time = 0
+
                 if game_mode == "start":
                     game_mode = "wait"
 
@@ -364,6 +374,17 @@ while not done:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 quit()
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    game_type = "menu"
+                    game_screen = "menu"
+                    game_mode = "start"
+                    num_targets = 0
+                    beginning = 0
+                    start_time = 0
+                    game_time = 0
+                    time_left = 0
 
             # If the game is waiting to start
             if game_mode == "start":
@@ -458,6 +479,17 @@ while not done:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 quit()
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    game_type = "menu"
+                    game_screen = "menu"
+                    game_mode = "start"
+                    num_targets = 0
+                    beginning = 0
+                    start_time = 0
+                    game_time = 0
+                    time_left = 0
 
             # If the game is waiting to start
             if game_mode == "start":
@@ -587,6 +619,17 @@ while not done:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 quit()
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    game_type = "menu"
+                    game_screen = "menu"
+                    game_mode = "start"
+                    num_targets = 0
+                    beginning = 0
+                    start_time = 0
+                    game_time = 0
+                    time_left = 0
 
             # If the game is waiting to start
             if game_mode == "start":
