@@ -41,6 +41,7 @@ game_time = 0
 time_left = 60
 game_start = 1
 start = 1
+first = 1
 target_count = 4
 done = False
 
@@ -128,10 +129,6 @@ def Regenerate_4():
             vertical_red_4 == vertical_red_2 or vertical_red_4 == vertical_red_3 or vertical_red_4 == vertical_red_1):
         horizontal_red_4 = random.choice(pos_list_horizontal)
         vertical_red_4 = random.choice(pos_list_vertical)
-
-
-# Target movement
-# def Target_Movement():
 
 
 # Main program loop
@@ -428,8 +425,7 @@ while not done:
             time_left = (60 - game_time) // 1
 
             # Show the targets hit and timer
-            pygame.draw.rect(screen, background, (1200, 0, 80, 70))
-            pygame.draw.rect(screen, background, (0, 0, 500, 75))
+            pygame.draw.rect(screen, (10, 20, 20), (0, 0, 1280, 75))
             Title_textL("Targets: " + str(num_targets), white, (10, 0))
             Title_textR(str(int(time_left)), white, (1270, 0))
 
@@ -478,40 +474,26 @@ while not done:
                     # Generate a target at a random position
                     if game_mode == "generate":
                         if (num_targets + 2) % 2 == 0:
+                            screen.fill(background)
                             horizontal_red = 590
                             vertical_red = 310
-                            target = screen.blit(red_target_image, [horizontal_red, vertical_red])
+                            screen.blit(red_target_image, [horizontal_red, vertical_red])
                             game_mode = "react"
 
                         elif (num_targets + 2) % 2 != 0:
+                            screen.fill(background)
                             horizontal_red = random.randint(0, 1020)
                             vertical_red = random.randint(75, 520)
-                            target = screen.blit(red_target_image, [horizontal_red, vertical_red])
+                            screen.blit(red_target_image, [horizontal_red, vertical_red])
                             game_mode = "react"
 
                     # Wait for the user to click the target and increase the counter when they do
                     if game_mode == "react":
-                        # Moving the target
-                        if (num_targets + 2) % 2 != 0:
-                            # Target_Movement()
-                            if start == 1:
-                                target_speed_x = 7 * random.choice((1, -1))
-                                target_speed_y = 7 * random.choice((1, -1))
-                                start = 0
-
-                            target.x += target_speed_x
-                            target.y += target_speed_y
-
-                            if target.top <= 0 or target.left <= 0:
-                                target_speed_y *= -1
-                            if target.bottom >= 720 or target.right >= 1280:
-                                target_speed_y *= -1
-
                         if event.type == pygame.MOUSEBUTTONDOWN and red_target_image.get_rect(
                                 topleft=[horizontal_red, vertical_red]).collidepoint(pygame.mouse.get_pos()):
-                            screen.fill(background)
                             num_targets += 1
                             start = 1
+                            first = 1
                             game_mode = "generate"
 
             # If the results are being displayed
@@ -534,6 +516,25 @@ while not done:
                         game_time = 0
                         time_left = 0
 
+        # Wait for the user to click the target and increase the counter when they do
+        if game_mode == "react":
+            # Moving the target
+            if (num_targets + 2) % 2 != 0:
+                screen.fill(background)
+                if start == 1:
+                    target_speed_x = 7 * random.choice((1, -1))
+                    target_speed_y = 7 * random.choice((1, -1))
+                    start = 0
+
+                horizontal_red += target_speed_x
+                vertical_red += target_speed_y
+                screen.blit(red_target_image, [horizontal_red, vertical_red])
+
+                if vertical_red <= 80 or vertical_red >= 620:
+                    target_speed_y *= -1
+                if horizontal_red <= 0 or horizontal_red >= 1180:
+                    target_speed_x *= -1
+
         # If the game has not started
         if game_mode == "start":
             # Display the starting text
@@ -542,8 +543,7 @@ while not done:
         # If the game has not started yet and has not finished
         if game_mode != "results" and game_mode != "start":
             # Show the targets hit and timer
-            pygame.draw.rect(screen, background, (1200, 0, 80, 70))
-            pygame.draw.rect(screen, background, (0, 0, 500, 75))
+            pygame.draw.rect(screen, (10, 20, 20), (0, 0, 1280, 75))
             Title_textL("Targets: " + str(num_targets), white, (10, 0))
             Title_textR(str(int(time_left)), white, (1270, 0))
 
@@ -730,8 +730,7 @@ while not done:
         # If the game has not started yet and has not finished
         if game_mode != "results" and game_mode != "start":
             # Show the targets hit and timer
-            pygame.draw.rect(screen, background, (1200, 0, 80, 70))
-            pygame.draw.rect(screen, background, (0, 0, 500, 75))
+            pygame.draw.rect(screen, (10, 20, 20), (0, 0, 1280, 75))
             Title_textL("Targets: " + str(num_targets), white, (10, 0))
             Title_textR(str(int(time_left)), white, (1270, 0))
 
