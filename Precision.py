@@ -91,6 +91,7 @@ def Subtitle_text(text="NULL", color=white, position=(640, 360)):
     screen.blit(rendered_text, rendered_text_rect)
 
 
+# Used for Grid Shot ********************************************************************************************
 # If the first target is overlapping another, regenerate it
 def Regenerate_1():
     global horizontal_red_1, horizontal_red_2, horizontal_red_3, horizontal_red_4, vertical_red_1, vertical_red_2, vertical_red_3, vertical_red_4
@@ -129,6 +130,7 @@ def Regenerate_4():
             vertical_red_4 == vertical_red_2 or vertical_red_4 == vertical_red_3 or vertical_red_4 == vertical_red_1):
         horizontal_red_4 = random.choice(pos_list_horizontal)
         vertical_red_4 = random.choice(pos_list_vertical)
+    # ***********************************************************************************************************
 
 
 # Main program loop
@@ -146,6 +148,7 @@ while not done:
                 # Quit the application
                 quit()
 
+            # Clear the high score data
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     ws['A1'] = None
@@ -280,8 +283,8 @@ while not done:
             if event.type == pygame.QUIT:
                 quit()
 
-            # If key is pressed
             if event.type == pygame.KEYDOWN:
+                # If escape key is pressed, exit to main menu
                 if event.key == pygame.K_ESCAPE:
                     game_screen = "menu"
                     game_type = "menu"
@@ -375,6 +378,7 @@ while not done:
             if event.type == pygame.QUIT:
                 quit()
 
+            # If escape key is pressed, exit to main menu
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     game_type = "menu"
@@ -480,6 +484,7 @@ while not done:
             if event.type == pygame.QUIT:
                 quit()
 
+            # If escape key is pressed, exit to main menu
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     game_type = "menu"
@@ -620,6 +625,7 @@ while not done:
             if event.type == pygame.QUIT:
                 quit()
 
+            # If escape key is pressed, exit to main menu
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     game_type = "menu"
