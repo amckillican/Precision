@@ -5,13 +5,10 @@
 - Benjamin Sergnese
 
 ## About
-This is essentially an app that will help train your hand eye coordination with a mouse, and your reaction time. The game consists of reaction time test, and an aim trainer where you click targets as they appear, there will be 3 levels of difficulties for the aim trainer.
-
-## Motivation
-This project exists for a computer science class CPT
+Precision is an app that will help train your hand-eye coordination and your reaction time. The game consists of a reaction time test and an aim trainer where you click targets as they appear. There will be three different modes for the aim trainer.
 
 ## Code style
-We will use pygame to set up the game, and we will have a random number generator to decide the time it takes for the person to react and measure that time. We will also use a random number generator to randomly place targets and measure the time it takes to hit the next target. We will use for loops to iterate through the user's inputs. We determine if a target needs to be displayed or if a key is being pressed based on the for loop. We will make use of functions to make our code easier to read and more concise.
+We will use pygame to set up the game, and we will have a random number generator to decide how long to wait before prompting the user to react and measure that time. We will also randomly generate targets and measure the time it takes to hit the next target. We will use for loops to iterate through the user's inputs. We determine if a target needs to be displayed or if a key is being pressed based on the for loop. We will make use of functions to make our code easier to read and more concise.
 
 ## Screenshots
 ![alt text](assets/screenshots/main_menu.png)
@@ -31,6 +28,7 @@ We will use pygame to set up the game, and we will have a random number generato
 - Pycharm
 - Pygame Module
 - Random Module
+- Openpyxl Module
 
 ## Features
 
@@ -41,7 +39,7 @@ We will use pygame to set up the game, and we will have a random number generato
     - Grid Shot
 
 ## Installation
-NOTE: Requires at least python 3.9.5 to be installed
+NOTE: Requires at least Python 3.9.5, Pygame, and Openpyxl to be installed.
 
 To download and run the game, open command prompt (terminal on macOS/Linux) in the directory you want your game to be installed to and run the following commands:
 
@@ -49,6 +47,6 @@ To download and run the game, open command prompt (terminal on macOS/Linux) in t
 
 ```cd Precision```
 
-Run this to open the game while in that directory
+Run this to open the game while in that directory:
 
 ```python Precision.py```
