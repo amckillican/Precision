@@ -10,18 +10,6 @@ Precision is an app that will help train your hand-eye coordination and your rea
 ## Code style
 We will use pygame to set up the game, and we will have a random number generator to decide how long to wait before prompting the user to react and measure that time. We will also randomly generate targets and measure the time it takes to hit the next target. We will use for loops to iterate through the user's inputs. We determine if a target needs to be displayed or if a key is being pressed based on the for loop. We will make use of functions to make our code easier to read and more concise.
 
-## Screenshots
-![alt text](assets/screenshots/main_menu.png)
-![alt text](assets/screenshots/aim_modes.png)
-![alt text](assets/screenshots/press_key.png)
-![alt text](assets/screenshots/press_key_time.png)
-![alt text](assets/screenshots/avg_time.png)
-![alt text](assets/screenshots/flick.png)
-![alt text](assets/screenshots/grid.png)
-![alt text](assets/screenshots/results.png)
-
-
-
 ## Tech/framework used
 
 <b>Built with</b>
@@ -50,3 +38,13 @@ To download and run the game, open command prompt (terminal on macOS/Linux) in t
 Run this to open the game while in that directory:
 
 ```python Precision.py```
+
+## Screenshots
+![alt text](assets/screenshots/main_menu.png)
+![alt text](assets/screenshots/aim_modes.png)
+![alt text](assets/screenshots/press_key.png)
+![alt text](assets/screenshots/press_key_time.png)
+![alt text](assets/screenshots/avg_time.png)
+![alt text](assets/screenshots/flick.png)
+![alt text](assets/screenshots/grid.png)
+![alt text](assets/screenshots/results.png)
