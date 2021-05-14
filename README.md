@@ -1,13 +1,13 @@
 # Precision
 
 ## Table Of Contents
-- [Created By](##Created-By)
-- [About](##About)
-- [Code Style](##Code-Style)
-- [Tech/Framework Used](##Tech/Framework-Used)
-- [Features](##Features)
-- [Installation](##Installation)
-- [Screenshots](##Screenshots)
+- [Created By](https://github.com/amckillican/Precision/blob/main/README.md#created-by)
+- [About](https://github.com/amckillican/Precision/blob/main/README.md#about)
+- [Code Style](https://github.com/amckillican/Precision/blob/main/README.md#code-style)
+- [Tech/Framework Used](https://github.com/amckillican/Precision/blob/main/README.md#techframework-used)
+- [Features](https://github.com/amckillican/Precision/blob/main/README.md#features)
+- [Installation](https://github.com/amckillican/Precision/blob/main/README.md#installation)
+- [Screenshots](https://github.com/amckillican/Precision/blob/main/README.md#screenshots)
 
 ## Created By
 - Alexander McKillican
