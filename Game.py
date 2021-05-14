@@ -40,6 +40,8 @@ final_average = 0
 game_time = 0
 time_left = 60
 game_start = 1
+start = 1
+first = 1
 target_count = 4
 done = False
 
@@ -57,7 +59,8 @@ spider_shot = pygame.image.load("assets/difficulty/spider_shot.png").convert_alp
 spider_shot_s = pygame.image.load("assets/difficulty/spider_shot_s.png").convert_alpha(screen)
 grid_shot = pygame.image.load("assets/difficulty/grid_shot.png").convert_alpha(screen)
 grid_shot_s = pygame.image.load("assets/difficulty/grid_shot_s.png").convert_alpha(screen)
-red_target_image = pygame.transform.scale((pygame.image.load("assets/targets/RED.png").convert_alpha(screen)), [100, 100])
+red_target_image = pygame.transform.scale((pygame.image.load("assets/targets/RED.png").convert_alpha(screen)),
+                                          [100, 100])
 
 
 # Render text function
@@ -121,9 +124,9 @@ while not done:
 
                 # Displaying the menu images
                 screen.blit(title, [160, 80])
-                screen.blit(reaction_button, [538, 262])
-                screen.blit(aim_button, [538, 410])
-                screen.blit(quit_button, [538, 558])
+                screen.blit(reaction_button, [750, 262])
+                screen.blit(aim_button, [750, 410])
+                screen.blit(quit_button, [750, 558])
 
                 # Displaying the high scores
                 Subtitle_text("High Scores", white, (190, 275))
@@ -148,32 +151,32 @@ while not done:
                     Subtitle_text(f"Grid Shot Time: {ws['D1'].value}", white, (120, 575))
 
                 # Highlighting the reaction time button if the mouse is overtop of it
-                if reaction_button.get_rect(topleft=[538, 262]).collidepoint(pygame.mouse.get_pos()):
-                    screen.blit(reaction_button_s, [538, 262])
+                if reaction_button.get_rect(topleft=[750, 262]).collidepoint(pygame.mouse.get_pos()):
+                    screen.blit(reaction_button_s, [750, 262])
 
                     # Start the reaction time game
                     if event.type == pygame.MOUSEBUTTONDOWN and reaction_button.get_rect(
-                            topleft=[538, 262]).collidepoint(pygame.mouse.get_pos()):
+                            topleft=[750, 262]).collidepoint(pygame.mouse.get_pos()):
                         pygame.Surface.fill(screen, background)
                         game_type = "react"
 
                 # Highlighting the aim training button if the mouse is overtop of it
-                elif aim_button.get_rect(topleft=[538, 410]).collidepoint(pygame.mouse.get_pos()):
-                    screen.blit(aim_button_s, [538, 410])
+                elif aim_button.get_rect(topleft=[750, 410]).collidepoint(pygame.mouse.get_pos()):
+                    screen.blit(aim_button_s, [750, 410])
 
                     # Change to the aim training selection screen
                     if event.type == pygame.MOUSEBUTTONDOWN and aim_button.get_rect(
-                            topleft=[538, 410]).collidepoint(pygame.mouse.get_pos()):
+                            topleft=[750, 410]).collidepoint(pygame.mouse.get_pos()):
                         pygame.Surface.fill(screen, background)
                         game_screen = "aim"
 
                 # Highlighting the quit button if the mouse is overtop of it
-                elif quit_button.get_rect(topleft=[538, 558]).collidepoint(pygame.mouse.get_pos()):
-                    screen.blit(quit_button_s, [538, 558])
+                elif quit_button.get_rect(topleft=[750, 558]).collidepoint(pygame.mouse.get_pos()):
+                    screen.blit(quit_button_s, [750, 558])
 
                     # Quitting the game
                     if event.type == pygame.MOUSEBUTTONDOWN and quit_button.get_rect(
-                            topleft=[538, 558]).collidepoint(pygame.mouse.get_pos()):
+                            topleft=[750, 558]).collidepoint(pygame.mouse.get_pos()):
                         quit()
 
             # If the menu is on the aim trainer game selection menu
@@ -239,6 +242,16 @@ while not done:
 
             # If key is pressed
             if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    game_screen = "menu"
+                    game_type = "menu"
+                    game_mode = "start"
+                    average_time = 0
+                    count = 0
+                    reaction_time = 0
+                    start_time = 0
+                    current_time = 0
+
                 if game_mode == "start":
                     game_mode = "wait"
 
@@ -317,17 +330,21 @@ while not done:
             screen.fill(background)
             beginning = 1
 
-        # Setting the game timer
-        if game_mode != "results" and game_mode != "start":
-            game_time = (current_time - start_time) / 1000
-
-            # Calculating how much time is left
-            time_left = (60 - game_time) // 1
-
         # Tracking user events
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 quit()
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    game_type = "menu"
+                    game_screen = "menu"
+                    game_mode = "start"
+                    num_targets = 0
+                    beginning = 0
+                    start_time = 0
+                    game_time = 0
+                    time_left = 0
 
             # If the game is waiting to start
             if game_mode == "start":
@@ -383,18 +400,20 @@ while not done:
                 game_mode = "results"
                 screen.fill(background)
 
+            game_time = (current_time - start_time) / 1000
+
+            # Calculating how much time is left
+            time_left = (60 - game_time) // 1
+
+            # Show the targets hit and timer
+            pygame.draw.rect(screen, (10, 20, 20), (0, 0, 1280, 75))
+            Title_textL("Targets: " + str(num_targets), white, (10, 0))
+            Title_textR(str(int(time_left)), white, (1270, 0))
+
         # If the game has not started
         if game_mode == "start":
             # Display the starting text
             Title_text("Click To Start")
-
-        # If the game has not started yet and has not finished
-        if game_mode != "results" and game_mode != "start":
-            # Show the targets hit and timer
-            pygame.draw.rect(screen, background, (1200, 0, 80, 70))
-            pygame.draw.rect(screen, background, (0, 0, 230, 75))
-            Title_textL("Targets: " + str(num_targets), white, (10, 0))
-            Title_textR(str(int(time_left)), white, (1270, 0))
 
         # If the time has run out
         if game_mode == "results":
@@ -416,17 +435,21 @@ while not done:
             screen.fill(background)
             beginning = 1
 
-        if game_mode != "results" and game_mode != "start":
-            # Setting the game timer
-            game_time = (current_time - start_time) / 1000
-
-            # Calculating how much time is left
-            time_left = (60 - game_time) // 1
-
         # Tracking user events
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 quit()
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    game_type = "menu"
+                    game_screen = "menu"
+                    game_mode = "start"
+                    num_targets = 0
+                    beginning = 0
+                    start_time = 0
+                    game_time = 0
+                    time_left = 0
 
             # If the game is waiting to start
             if game_mode == "start":
@@ -443,12 +466,14 @@ while not done:
                     # Generate a target at a random position
                     if game_mode == "generate":
                         if (num_targets + 2) % 2 == 0:
+                            screen.fill(background)
                             horizontal_red = 590
                             vertical_red = 310
                             screen.blit(red_target_image, [horizontal_red, vertical_red])
                             game_mode = "react"
 
                         elif (num_targets + 2) % 2 != 0:
+                            screen.fill(background)
                             horizontal_red = random.randint(0, 1020)
                             vertical_red = random.randint(75, 520)
                             screen.blit(red_target_image, [horizontal_red, vertical_red])
@@ -458,8 +483,9 @@ while not done:
                     if game_mode == "react":
                         if event.type == pygame.MOUSEBUTTONDOWN and red_target_image.get_rect(
                                 topleft=[horizontal_red, vertical_red]).collidepoint(pygame.mouse.get_pos()):
-                            screen.fill(background)
                             num_targets += 1
+                            start = 1
+                            first = 1
                             game_mode = "generate"
 
             # If the results are being displayed
@@ -482,6 +508,25 @@ while not done:
                         game_time = 0
                         time_left = 0
 
+        # Wait for the user to click the target and increase the counter when they do
+        if game_mode == "react":
+            # Moving the target
+            if (num_targets + 2) % 2 != 0:
+                screen.fill(background)
+                if start == 1:
+                    target_speed_x = 7 * random.choice((1, -1))
+                    target_speed_y = 7 * random.choice((1, -1))
+                    start = 0
+
+                horizontal_red += target_speed_x
+                vertical_red += target_speed_y
+                screen.blit(red_target_image, [horizontal_red, vertical_red])
+
+                if vertical_red <= 80 or vertical_red >= 620:
+                    target_speed_y *= -1
+                if horizontal_red <= 0 or horizontal_red >= 1180:
+                    target_speed_x *= -1
+
         # If the game has not started
         if game_mode == "start":
             # Display the starting text
@@ -490,13 +535,16 @@ while not done:
         # If the game has not started yet and has not finished
         if game_mode != "results" and game_mode != "start":
             # Show the targets hit and timer
-            pygame.draw.rect(screen, background, (1200, 0, 80, 70))
-            pygame.draw.rect(screen, background, (0, 0, 230, 75))
+            pygame.draw.rect(screen, (10, 20, 20), (0, 0, 1280, 75))
             Title_textL("Targets: " + str(num_targets), white, (10, 0))
             Title_textR(str(int(time_left)), white, (1270, 0))
 
-        # While the game has been running for more than 60 seconds
-        if game_mode != "results" and game_mode != "start":
+            # Setting the game timer
+            game_time = (current_time - start_time) / 1000
+
+            # Calculating how much time is left
+            time_left = (60 - game_time) // 1
+
             if game_time > 60:
                 # Display the results
                 game_mode = "results"
