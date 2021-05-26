@@ -303,6 +303,7 @@ while not done:
                     start = 1
                     first = 1
                     target_count = 4
+                    break
 
                 if game_mode == "start":
                     game_mode = "wait"
@@ -349,6 +350,7 @@ while not done:
                         start = 1
                         first = 1
                         target_count = 4
+                        break
 
         # Showing the previous reaction time
         if game_mode == "wait":
@@ -419,6 +421,7 @@ while not done:
                     start = 1
                     first = 1
                     target_count = 4
+                    break
 
             # If the game is waiting to start
             if game_mode == "start":
@@ -475,6 +478,7 @@ while not done:
                         start = 1
                         first = 1
                         target_count = 4
+                        break
 
         # While the game has been running for more than 60 seconds
         if game_mode != "results" and game_mode != "start":
@@ -496,8 +500,8 @@ while not done:
         # If the game has not started
         if game_mode == "start":
             # Display the starting text
-            Title_text("Click On Targets", white, (640, 300))
-            Title_text("As They Appear", white, (640, 400))
+            Title_text("Click On Targets", white, (640, 250))
+            Title_text("As They Appear", white, (640, 350))
             Title_text("Click To Start", white, (640, 550))
 
         # If the time has run out
@@ -545,6 +549,7 @@ while not done:
                     start = 1
                     first = 1
                     target_count = 4
+                    break
 
             # If the game is waiting to start
             if game_mode == "start":
@@ -611,6 +616,7 @@ while not done:
                         start = 1
                         first = 1
                         target_count = 4
+                        break
 
         # Wait for the user to click the target and increase the counter when they do
         if game_mode == "react":
@@ -634,7 +640,10 @@ while not done:
         # If the game has not started
         if game_mode == "start":
             # Display the starting text
-            Title_text("Click To Start")
+            Title_text("Click On Targets As They Appear", white, (640, 150))
+            Title_text("Every Other Target Will", white, (640, 250))
+            Title_text("Appear In The Center", white, (640, 350))
+            Title_text("Click To Start", white, (640, 550))
 
         # If the game has not started yet and has not finished
         if game_mode != "results" and game_mode != "start":
@@ -704,6 +713,7 @@ while not done:
                     start = 1
                     first = 1
                     target_count = 4
+                    break
 
             # If the game is waiting to start
             if game_mode == "start":
@@ -801,6 +811,7 @@ while not done:
                         start = 1
                         first = 1
                         target_count = 4
+                        break
 
         # While the game has been running for less than 60 seconds
         if game_mode != "results" and game_mode != "start":
@@ -851,7 +862,10 @@ while not done:
         # If the game has not started
         if game_mode == "start":
             # Display the starting text
-            Title_text("Click To Start")
+            Title_text("Multiple Targets Will Appear", white, (640, 150))
+            Title_text("Click As Many As You Can", white, (640, 250))
+            Title_text("Within The Time Limit", white, (640, 350))
+            Title_text("Click To Start", white, (640, 550))
 
         # If the game has not started yet and has not finished
         if game_mode != "results" and game_mode != "start":
