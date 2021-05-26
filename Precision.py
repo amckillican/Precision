@@ -291,9 +291,18 @@ while not done:
                     game_mode = "start"
                     average_time = 0
                     count = 0
+                    num_targets = 0
+                    beginning = 0
                     reaction_time = 0
                     start_time = 0
                     current_time = 0
+                    final_average = 0
+                    game_time = 0
+                    time_left = 60
+                    game_start = 1
+                    start = 1
+                    first = 1
+                    target_count = 4
 
                 if game_mode == "start":
                     game_mode = "wait"
@@ -328,9 +337,18 @@ while not done:
                         game_mode = "start"
                         average_time = 0
                         count = 0
+                        num_targets = 0
+                        beginning = 0
                         reaction_time = 0
                         start_time = 0
                         current_time = 0
+                        final_average = 0
+                        game_time = 0
+                        time_left = 60
+                        game_start = 1
+                        start = 1
+                        first = 1
+                        target_count = 4
 
         # Showing the previous reaction time
         if game_mode == "wait":
@@ -350,7 +368,10 @@ while not done:
         # Prompt the user to start
         if count < 3:
             if game_mode == "start":
-                Title_text("Press Any Key To Start")
+                Title_text("Press A Key As Fast", white, (640, 150))
+                Title_text("As You Can, When", white, (640, 250))
+                Title_text("Prompted To React", white, (640, 350))
+                Title_text("Press Any Key To Start", white, (640, 550))
             if game_mode == "wait_for_reaction":
                 Title_text("Press Any Key")
 
@@ -381,14 +402,23 @@ while not done:
             # If escape key is pressed, exit to main menu
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    game_type = "menu"
                     game_screen = "menu"
+                    game_type = "menu"
                     game_mode = "start"
+                    average_time = 0
+                    count = 0
                     num_targets = 0
                     beginning = 0
+                    reaction_time = 0
                     start_time = 0
+                    current_time = 0
+                    final_average = 0
                     game_time = 0
-                    time_left = 0
+                    time_left = 60
+                    game_start = 1
+                    start = 1
+                    first = 1
+                    target_count = 4
 
             # If the game is waiting to start
             if game_mode == "start":
@@ -428,14 +458,23 @@ while not done:
                         if ws['B1'] is not None and final_average <= ws['B1'].value:
                             ws['B1'] = int(f"{final_average:.0f}")
                         wb.save("Precision.xlsx")
-                        game_type = "menu"
                         game_screen = "menu"
+                        game_type = "menu"
                         game_mode = "start"
+                        average_time = 0
+                        count = 0
                         num_targets = 0
                         beginning = 0
+                        reaction_time = 0
                         start_time = 0
+                        current_time = 0
+                        final_average = 0
                         game_time = 0
-                        time_left = 0
+                        time_left = 60
+                        game_start = 1
+                        start = 1
+                        first = 1
+                        target_count = 4
 
         # While the game has been running for more than 60 seconds
         if game_mode != "results" and game_mode != "start":
@@ -457,7 +496,9 @@ while not done:
         # If the game has not started
         if game_mode == "start":
             # Display the starting text
-            Title_text("Click To Start")
+            Title_text("Click On Targets", white, (640, 300))
+            Title_text("As They Appear", white, (640, 400))
+            Title_text("Click To Start", white, (640, 550))
 
         # If the time has run out
         if game_mode == "results":
@@ -487,14 +528,23 @@ while not done:
             # If escape key is pressed, exit to main menu
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    game_type = "menu"
                     game_screen = "menu"
+                    game_type = "menu"
                     game_mode = "start"
+                    average_time = 0
+                    count = 0
                     num_targets = 0
                     beginning = 0
+                    reaction_time = 0
                     start_time = 0
+                    current_time = 0
+                    final_average = 0
                     game_time = 0
-                    time_left = 0
+                    time_left = 60
+                    game_start = 1
+                    start = 1
+                    first = 1
+                    target_count = 4
 
             # If the game is waiting to start
             if game_mode == "start":
@@ -544,14 +594,23 @@ while not done:
                         if ws['C1'] is not None and final_average <= ws['C1'].value:
                             ws['C1'] = int(f"{final_average:.0f}")
                         wb.save("Precision.xlsx")
-                        game_type = "menu"
                         game_screen = "menu"
+                        game_type = "menu"
                         game_mode = "start"
+                        average_time = 0
+                        count = 0
                         num_targets = 0
                         beginning = 0
+                        reaction_time = 0
                         start_time = 0
+                        current_time = 0
+                        final_average = 0
                         game_time = 0
-                        time_left = 0
+                        time_left = 60
+                        game_start = 1
+                        start = 1
+                        first = 1
+                        target_count = 4
 
         # Wait for the user to click the target and increase the counter when they do
         if game_mode == "react":
@@ -628,14 +687,23 @@ while not done:
             # If escape key is pressed, exit to main menu
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    game_type = "menu"
                     game_screen = "menu"
+                    game_type = "menu"
                     game_mode = "start"
+                    average_time = 0
+                    count = 0
                     num_targets = 0
                     beginning = 0
+                    reaction_time = 0
                     start_time = 0
+                    current_time = 0
+                    final_average = 0
                     game_time = 0
-                    time_left = 0
+                    time_left = 60
+                    game_start = 1
+                    start = 1
+                    first = 1
+                    target_count = 4
 
             # If the game is waiting to start
             if game_mode == "start":
@@ -716,14 +784,23 @@ while not done:
                         if ws['D1'] is not None and final_average <= ws['D1'].value:
                             ws['D1'] = int(f"{final_average:.0f}")
                         wb.save("Precision.xlsx")
-                        game_type = "menu"
                         game_screen = "menu"
+                        game_type = "menu"
                         game_mode = "start"
+                        average_time = 0
+                        count = 0
                         num_targets = 0
                         beginning = 0
+                        reaction_time = 0
                         start_time = 0
+                        current_time = 0
+                        final_average = 0
                         game_time = 0
-                        time_left = 0
+                        time_left = 60
+                        game_start = 1
+                        start = 1
+                        first = 1
+                        target_count = 4
 
         # While the game has been running for less than 60 seconds
         if game_mode != "results" and game_mode != "start":
