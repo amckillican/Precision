@@ -62,6 +62,19 @@ grid_shot = pygame.image.load("assets/difficulty/grid_shot.png").convert_alpha(s
 grid_shot_s = pygame.image.load("assets/difficulty/grid_shot_s.png").convert_alpha(screen)
 red_target_image = pygame.transform.scale((pygame.image.load("assets/targets/RED.png").convert_alpha(screen)),
                                           [100, 100])
+orange_target_image = pygame.transform.scale((pygame.image.load("assets/targets/ORANGE.png").convert_alpha(screen)),
+                                             [100, 100])
+blue_target_image = pygame.transform.scale((pygame.image.load("assets/targets/BLUE.png").convert_alpha(screen)),
+                                           [100, 100])
+green_target_image = pygame.transform.scale((pygame.image.load("assets/targets/GREEN.png").convert_alpha(screen)),
+                                            [100, 100])
+purple_target_image = pygame.transform.scale((pygame.image.load("assets/targets/PURPLE.png").convert_alpha(screen)),
+                                            [100, 100])
+yellow_target_image = pygame.transform.scale((pygame.image.load("assets/targets/YELLOW.png").convert_alpha(screen)),
+                                            [100, 100])
+
+# list of target images
+image_list = (red_target_image, orange_target_image, blue_target_image, green_target_image, purple_target_image, yellow_target_image)
 
 
 # Render text function
@@ -752,10 +765,10 @@ while not done:
                         Regenerate_4()
 
                         # Display them on screen
-                        screen.blit(red_target_image, [horizontal_red_1, vertical_red_1])
-                        screen.blit(red_target_image, [horizontal_red_2, vertical_red_2])
-                        screen.blit(red_target_image, [horizontal_red_3, vertical_red_3])
-                        screen.blit(red_target_image, [horizontal_red_4, vertical_red_4])
+                        screen.blit(random.choice(image_list), [horizontal_red_1, vertical_red_1])
+                        screen.blit(random.choice(image_list), [horizontal_red_2, vertical_red_2])
+                        screen.blit(random.choice(image_list), [horizontal_red_3, vertical_red_3])
+                        screen.blit(random.choice(image_list), [horizontal_red_4, vertical_red_4])
 
             # Wait for the user to click the target and increase the counter when they do
             if game_mode == "react":
@@ -829,7 +842,7 @@ while not done:
                     horizontal_red_1 = random.choice(pos_list_horizontal)
                     vertical_red_1 = random.choice(pos_list_vertical)
                     Regenerate_1()
-                    screen.blit(red_target_image, [horizontal_red_1, vertical_red_1])
+                    screen.blit(random.choice(image_list), [horizontal_red_1, vertical_red_1])
                     target_count += 1
                     game_mode = "react"
 
@@ -840,7 +853,7 @@ while not done:
                     horizontal_red_2 = random.choice(pos_list_horizontal)
                     vertical_red_2 = random.choice(pos_list_vertical)
                     Regenerate_2()
-                    screen.blit(red_target_image, [horizontal_red_2, vertical_red_2])
+                    screen.blit(random.choice(image_list), [horizontal_red_2, vertical_red_2])
                     target_count += 1
                     game_mode = "react"
 
@@ -851,7 +864,7 @@ while not done:
                     horizontal_red_3 = random.choice(pos_list_horizontal)
                     vertical_red_3 = random.choice(pos_list_vertical)
                     Regenerate_3()
-                    screen.blit(red_target_image, [horizontal_red_3, vertical_red_3])
+                    screen.blit(random.choice(image_list), [horizontal_red_3, vertical_red_3])
                     target_count += 1
                     game_mode = "react"
 
@@ -862,7 +875,7 @@ while not done:
                     horizontal_red_4 = random.choice(pos_list_horizontal)
                     vertical_red_4 = random.choice(pos_list_vertical)
                     Regenerate_4()
-                    screen.blit(red_target_image, [horizontal_red_4, vertical_red_4])
+                    screen.blit(random.choice(image_list), [horizontal_red_4, vertical_red_4])
                     target_count += 1
                     game_mode = "react"
 
