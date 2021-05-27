@@ -9,6 +9,7 @@ pygame.font.init()
 screen = pygame.display.set_mode((1280, 720))
 Title_Font = pygame.font.SysFont("Arial", 60)
 Subtitle_Font = pygame.font.SysFont("Arial", 40)
+Body_Font = pygame.font.SysFont("Arial", 25)
 pygame.display.set_caption("Precision - Main Menu")
 clock = pygame.time.Clock()
 wb = load_workbook(filename="Precision.xlsx")
@@ -91,7 +92,13 @@ def Subtitle_text(text="NULL", color=white, position=(640, 360)):
     screen.blit(rendered_text, rendered_text_rect)
 
 
-# Used for Grid Shot ********************************************************************************************
+# Render text function
+def Body_textBL(text="NULL", color=white, position=(640, 360)):
+    rendered_text = (Body_Font.render(text, True, color))
+    rendered_text_rect = rendered_text.get_rect(bottomleft=position)
+    screen.blit(rendered_text, rendered_text_rect)
+
+
 # If the first target is overlapping another, regenerate it
 def Regenerate_1():
     global horizontal_red_1, horizontal_red_2, horizontal_red_3, horizontal_red_4, vertical_red_1, vertical_red_2, vertical_red_3, vertical_red_4
@@ -130,7 +137,6 @@ def Regenerate_4():
             vertical_red_4 == vertical_red_2 or vertical_red_4 == vertical_red_3 or vertical_red_4 == vertical_red_1):
         horizontal_red_4 = random.choice(pos_list_horizontal)
         vertical_red_4 = random.choice(pos_list_vertical)
-    # ***********************************************************************************************************
 
 
 # Main program loop
@@ -170,6 +176,7 @@ while not done:
                 screen.blit(reaction_button, [750, 262])
                 screen.blit(aim_button, [750, 410])
                 screen.blit(quit_button, [750, 558])
+                Body_textBL("Created By: Richard Morad, Alexander McKillican, Benjamin Sergnese", white, (0, 718))
 
                 # Displaying the high scores
                 Subtitle_text("High Scores", white, (190, 275))
