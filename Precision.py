@@ -75,7 +75,8 @@ yellow_target_image = pygame.transform.scale((pygame.image.load("assets/targets/
 
 # list of target images
 image_list = (
-red_target_image, orange_target_image, blue_target_image, green_target_image, purple_target_image, yellow_target_image)
+    red_target_image, orange_target_image, blue_target_image, green_target_image, purple_target_image,
+    yellow_target_image)
 
 
 # Render text function
