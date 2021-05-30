@@ -6,6 +6,7 @@ from openpyxl import load_workbook
 # Initializing everything
 pygame.init()
 pygame.font.init()
+pygame.mixer.init()
 screen = pygame.display.set_mode((1280, 720))
 Title_Font = pygame.font.SysFont("Arial", 60)
 Subtitle_Font = pygame.font.SysFont("Arial", 40)
@@ -468,6 +469,8 @@ while not done:
                     if game_mode == "react":
                         if event.type == pygame.MOUSEBUTTONDOWN and red_target_image.get_rect(
                                 topleft=[horizontal_red, vertical_red]).collidepoint(pygame.mouse.get_pos()):
+                            hit1 = pygame.mixer.Sound("assets/targets/hit.mp3")
+                            pygame.mixer.find_channel(True).play(hit1)
                             screen.fill(background)
                             num_targets += 1
                             game_mode = "generate"
@@ -605,6 +608,8 @@ while not done:
                     if game_mode == "react":
                         if event.type == pygame.MOUSEBUTTONDOWN and red_target_image.get_rect(
                                 topleft=[horizontal_red, vertical_red]).collidepoint(pygame.mouse.get_pos()):
+                            hit1 = pygame.mixer.Sound("assets/targets/hit.mp3")
+                            pygame.mixer.find_channel(True).play(hit1)
                             num_targets += 1
                             start = 1
                             first = 1
@@ -776,6 +781,8 @@ while not done:
             if game_mode == "react":
                 if event.type == pygame.MOUSEBUTTONDOWN and red_target_image.get_rect(
                         topleft=[horizontal_red_1, vertical_red_1]).collidepoint(pygame.mouse.get_pos()):
+                    hit1 = pygame.mixer.Sound("assets/targets/hit.mp3")
+                    pygame.mixer.find_channel(True).play(hit1)
                     pygame.draw.rect(screen, background, (horizontal_red_1, vertical_red_1, 100, 100))
                     num_targets += 1
                     target_count -= 1
@@ -784,6 +791,8 @@ while not done:
                 # Wait for the user to click the target and increase the counter when they do
                 elif event.type == pygame.MOUSEBUTTONDOWN and red_target_image.get_rect(
                         topleft=[horizontal_red_2, vertical_red_2]).collidepoint(pygame.mouse.get_pos()):
+                    hit1 = pygame.mixer.Sound("assets/targets/hit.mp3")
+                    pygame.mixer.find_channel(True).play(hit1)
                     pygame.draw.rect(screen, background, (horizontal_red_2, vertical_red_2, 100, 100))
                     num_targets += 1
                     target_count -= 1
@@ -792,6 +801,8 @@ while not done:
                 # Wait for the user to click the target and increase the counter when they do
                 elif event.type == pygame.MOUSEBUTTONDOWN and red_target_image.get_rect(
                         topleft=[horizontal_red_3, vertical_red_3]).collidepoint(pygame.mouse.get_pos()):
+                    hit1 = pygame.mixer.Sound("assets/targets/hit.mp3")
+                    pygame.mixer.find_channel(True).play(hit1)
                     pygame.draw.rect(screen, background, (horizontal_red_3, vertical_red_3, 100, 100))
                     num_targets += 1
                     target_count -= 1
@@ -800,6 +811,8 @@ while not done:
                 # Wait for the user to click the target and increase the counter when they do
                 elif event.type == pygame.MOUSEBUTTONDOWN and red_target_image.get_rect(
                         topleft=[horizontal_red_4, vertical_red_4]).collidepoint(pygame.mouse.get_pos()):
+                    hit1 = pygame.mixer.Sound("assets/targets/hit.mp3")
+                    pygame.mixer.find_channel(True).play(hit1)
                     pygame.draw.rect(screen, background, (horizontal_red_4, vertical_red_4, 100, 100))
                     num_targets += 1
                     target_count -= 1
