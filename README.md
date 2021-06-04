@@ -8,6 +8,7 @@
 - [Features](https://github.com/amckillican/Precision/blob/main/README.md#features)
 - [Installation](https://github.com/amckillican/Precision/blob/main/README.md#installation)
 - [Screenshots](https://github.com/amckillican/Precision/blob/main/README.md#screenshots)
+- [Sources](https://github.com/amckillican/Precision#sources)
 
 ## Created By
 - Alexander McKillican
