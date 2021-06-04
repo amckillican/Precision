@@ -64,3 +64,4 @@ Run this to open the game while in that directory:
 - [Pygame Documentation](https://www.pygame.org/docs/)
 - [Openpyxl Documentation](https://openpyxl.readthedocs.io/en/stable/#)
 - [Random Module Documentation](https://docs.python.org/3/library/random.html)
+- [Story Blocks](https://www.storyblocks.com/)
